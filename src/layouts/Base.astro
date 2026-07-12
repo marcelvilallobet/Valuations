@@ -4,6 +4,7 @@
  * Todas las páginas lo usan pasando title y description.
  */
 import textos from "../config/textos.json";
+import Analitica from "../components/Analitica.astro";
 import "../styles/global.css";
 
 interface Props {
@@ -14,7 +15,7 @@ interface Props {
 }
 
 const { title, description, path = Astro.url.pathname } = Astro.props;
-const site = Astro.site ?? new URL("https://tudominio.es");
+const site = Astro.site ?? new URL("http://localhost:4321");
 const canonical = new URL(path, site).href;
 const marca = textos.marca;
 
@@ -78,6 +79,7 @@ const schemaOrg = {
         <a href="/" class="site-logo">{marca.nombre}</a>
         <nav class="site-nav" aria-label="Navegación principal">
           <a href="/">Calculadora</a>
+          <a href="/sectores">Sectores</a>
           <a href="/como-valoramos">Cómo valoramos</a>
           <a href="/faq">FAQ</a>
         </nav>

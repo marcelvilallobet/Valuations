@@ -10,6 +10,8 @@ import Resultado from "../components/Resultado.astro";
 import Autoridad from "../components/Autoridad.astro";
 import FAQ from "../components/FAQ.astro";
 import textos from "../config/textos.json";
+import sectoresData from "../config/sectores.json";
+import paginasData from "../config/sectores-paginas.json";
 
 // JSON-LD específico: servicio de valoración financiera
 const schemaService = {
@@ -35,6 +37,24 @@ const schemaService = {
   </div>
 
   <Autoridad />
+
+  <!-- Enlazado interno a las guías por sector (usuarios + SEO) -->
+  <section class="section">
+    <div class="container">
+      <h2 class="text-center">Guías de valoración por sector</h2>
+      <p class="text-center" style="color: var(--color-gray-500); max-width: 620px; margin-inline: auto;">
+        El sector define el múltiplo que pagan los compradores. Mira los datos del tuyo.
+      </p>
+      <div class="sectores-grid">
+        {sectoresData.sectores.filter((s) => paginasData.paginas[s.id]).map((s) => (
+          <a href={`/sectores/${s.id}`} class="sector-card">
+            <strong>{s.nombre}</strong>
+            <span>{s.multiplo_min}x – {s.multiplo_max}x EBITDA</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
 
   <section class="section">
     <div class="container" style="max-width: 760px;">

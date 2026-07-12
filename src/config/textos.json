@@ -1,8 +1,8 @@
-﻿{
+{
   "marca": {
-    "nombre": "ValoraMiEmpresa",
-    "dominio": "valoramiempresa.es",
-    "email_contacto": "hola@valoramiempresa.es",
+    "nombre": "ValoraPyme",
+    "dominio": "valorapyme.es",
+    "email_contacto": "hola@valorapyme.es",
     "tagline": "Sabe cuánto vale tu empresa, ahora mismo y gratis"
   },
   "seo": {
@@ -40,5 +40,11 @@
     "subtitulo": "Generado automáticamente — no sustituye a una valoración profesional",
     "seccion_como_defender": "Cómo defender esta valoración ante un comprador",
     "texto_como_defender": "El valor de tu empresa no es solo un número: es el punto de partida de una negociación.\n\n1. EBITDA recurrente y documentado. Los compradores pagan más por beneficios predecibles. Si tu EBITDA ha sido estable o creciente los últimos 3 años, tienes un argumento sólido.\n\n2. Cartera de clientes diversificada. Cuanto más dependa el negocio de uno o dos clientes, más riesgo ve el comprador. Diversificar antes de vender puede subir el múltiplo.\n\n3. Equipo que no depende del dueño. Si el negocio funciona sin ti, vale más. Si solo funciona contigo, el comprador descontará riesgo.\n\n4. Contratos en vigor. Los contratos de larga duración justifican múltiplos más altos.\n\n5. Documentación financiera limpia. Cuentas auditadas o bien ordenadas eliminan incertidumbre y refuerzan tu posición negociadora."
+  },
+  "analitica": {
+    "_comentario": "Analitica sin cookies (Plausible/Umami). 1) Crea cuenta, 2) pon tu dominio aqui, 3) activa=true. Ver README.",
+    "activa": false,
+    "script_url": "https://plausible.io/js/script.js",
+    "dominio": ""
   }
 }

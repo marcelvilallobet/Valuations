@@ -1,0 +1,158 @@
+{
+  "_comentario": "Copy de las paginas por sector (/sectores/). Editable sin tocar codigo. Multiplo y margen salen de sectores.json automaticamente.",
+  "paginas": {
+    "tecnologia": {
+      "titulo_h1": "¿Cuánto vale una empresa de tecnología o SaaS?",
+      "meta_title": "Cuánto vale una empresa de tecnología o SaaS | Valoración gratis",
+      "meta_description": "Calcula gratis y al instante cuánto vale tu empresa tecnológica o SaaS. Múltiplos EV/EBITDA reales del sector y qué factores suben (o hunden) tu valoración.",
+      "intro": [
+        "Las empresas tecnológicas se pagan a los múltiplos más altos del mercado español, y con razón: sus ingresos suelen ser recurrentes, sus márgenes escalan y no dependen de activos físicos. Pero ojo: “tecnológica” no es una etiqueta mágica. Un SaaS con contratos anuales y churn bajo puede valer 14 veces su EBITDA; una consultora IT que factura por horas se parece más a una empresa de servicios y el mercado la paga como tal.",
+        "La pregunta que se hará cualquier comprador es simple: ¿estos ingresos se repiten solos el año que viene, o hay que salir a venderlos otra vez? Cuanto más automática sea la respuesta, más arriba estarás en el rango."
+      ],
+      "drivers": [
+        "Ingresos recurrentes (MRR/ARR) con contratos firmados: es EL factor número uno",
+        "Churn bajo: si los clientes no se van, el comprador paga la permanencia",
+        "Producto propio frente a servicios a medida: el software escala, las horas no",
+        "Equipo técnico que se queda tras la venta: sin ellos no hay producto"
+      ],
+      "perfil_comprador": "Fondos de venture capital y private equity, empresas del sector que buscan integrar producto o cartera, y cada vez más search funds buscando SaaS rentables y pequeños. Es el sector con más compradores activos por empresa en venta.",
+      "error_comun": "Valorarse por facturación total mezclando ingresos recurrentes con proyectos puntuales. Un comprador serio separará ambos y pagará múltiplos muy distintos por cada parte."
+    },
+    "industria": {
+      "titulo_h1": "¿Cuánto vale una empresa industrial o de manufactura?",
+      "meta_title": "Cuánto vale una empresa industrial | Valoración gratis por múltiplos",
+      "meta_description": "Calcula gratis cuánto vale tu empresa industrial o de manufactura. Múltiplos EV/EBITDA del sector, el papel de la maquinaria y qué buscan los compradores.",
+      "intro": [
+        "La industria es el terreno clásico de la compraventa de empresas en España: negocios tangibles, con historia, maquinaria y clientes de años. Los múltiplos son moderados (el capital inmovilizado pesa), pero las operaciones son de las más sólidas y frecuentes del mercado.",
+        "En una industrial, el comprador no solo compra beneficios: compra capacidad instalada, certificaciones que cuestan años conseguir y relaciones con clientes que nadie regala. Todo eso defiende el precio si está documentado."
+      ],
+      "drivers": [
+        "Contratos de suministro estables con clientes solventes (automoción, alimentación, farma...)",
+        "Certificaciones (ISO, homologaciones de cliente) difíciles de replicar",
+        "Maquinaria moderna y amortizada: el CAPEX pendiente se descuenta del precio",
+        "Diversificación de clientes: que ninguno pese más del 20-25 % de las ventas"
+      ],
+      "perfil_comprador": "Competidores que buscan capacidad o mercado (integración horizontal), grupos industriales en consolidación y fondos especializados en el midmarket industrial. El comprador industrial paga mejor cuando tu planta le resuelve un cuello de botella.",
+      "error_comun": "No separar el inmueble de la actividad. Si la nave es de la empresa, mezclar ambos valores confunde la negociación: se suelen valorar (y a menudo vender) por separado."
+    },
+    "retail": {
+      "titulo_h1": "¿Cuánto vale un comercio o empresa de retail?",
+      "meta_title": "Cuánto vale mi comercio | Valoración gratis de retail",
+      "meta_description": "Calcula gratis cuánto vale tu comercio o cadena de retail. Múltiplos del sector, el peso de la ubicación y el stock, y qué mira un comprador.",
+      "intro": [
+        "El retail se valora con múltiplos contenidos: márgenes ajustados, competencia del canal online y dependencia del punto de venta. Pero dentro del sector hay mundos: una cadena con marca propia y venta online consolidada no se paga igual que una tienda única a pie de calle.",
+        "La clave para el comprador es la resiliencia: ¿este negocio sobrevive a un cambio de hábitos, a un competidor online, a una reforma de la calle? Cuantas más respuestas positivas, más cerca del múltiplo alto."
+      ],
+      "drivers": [
+        "Ubicaciones con contratos de alquiler largos y por debajo de mercado",
+        "Canal online propio con ventas demostrables (no solo “tenemos web”)",
+        "Marca propia o exclusivas de distribución que el comprador no puede copiar",
+        "Rotación de stock sana: el almacén lleno de género viejo se descuenta del precio"
+      ],
+      "perfil_comprador": "Cadenas en expansión que compran ubicación y cuota, grupos de distribución, y emprendedores que buscan un negocio en marcha. En retail pequeño, el comprador particular es más habitual que el fondo.",
+      "error_comun": "Contar el stock como valor añadido al precio. El inventario vendible ya está dentro del negocio que se valora; el invendible, directamente se resta."
+    },
+    "servicios": {
+      "titulo_h1": "¿Cuánto vale una empresa de servicios profesionales?",
+      "meta_title": "Cuánto vale mi empresa de servicios | Valoración gratuita",
+      "meta_description": "Calcula gratis cuánto vale tu consultora, gestoría, agencia o empresa de servicios. Múltiplos reales y el factor que más pesa: la dependencia del dueño.",
+      "intro": [
+        "Consultoras, gestorías, agencias, ingenierías, despachos: las empresas de servicios viven de su gente y de sus clientes. Por eso su valoración tiene el rango más ancho de todos: de 4 a 8 veces EBITDA según un único factor dominante — cuánto depende el negocio de ti.",
+        "La prueba del algodón que hará cualquier comprador: si el dueño se va mañana, ¿los clientes se quedan? Si la respuesta es sí (contratos con la empresa, equipo que gestiona las cuentas), estás en la parte alta. Si los clientes “son tuyos”, el comprador sabe que está comprando humo que se evapora contigo."
+      ],
+      "drivers": [
+        "Ingresos recurrentes por contrato (igualas, retainers, mantenimientos) frente a proyectos sueltos",
+        "Cartera gestionada por el equipo, no por el dueño: la transición es el riesgo nº 1",
+        "Clientes con antigüedad demostrable: la permanencia pasada predice la futura",
+        "Procesos documentados: que el know-how esté en la empresa, no en cabezas concretas"
+      ],
+      "perfil_comprador": "Firmas más grandes en consolidación (compran cartera y equipo), competidores directos y grupos que integran servicios complementarios. Las operaciones suelen incluir permanencia del vendedor 1-3 años y precio variable según retención de clientes (earn-out).",
+      "error_comun": "Creer que la facturación es tuya. En servicios, el comprador comprará contratos y equipo; la parte del negocio que depende de tu relación personal la pagará con condiciones (earn-out), no con precio fijo."
+    },
+    "hosteleria": {
+      "titulo_h1": "¿Cuánto vale un restaurante o negocio de hostelería?",
+      "meta_title": "Cuánto vale mi restaurante | Valoración gratis de hostelería",
+      "meta_description": "Calcula gratis cuánto vale tu restaurante, bar u hotel. Múltiplos reales de hostelería, el papel del local y las licencias, y qué paga de verdad un comprador.",
+      "intro": [
+        "La hostelería tiene los múltiplos más bajos del mercado (3-5 veces EBITDA) por una razón que cualquier hostelero conoce: es un negocio duro, intensivo en personal, sensible al ciclo y donde la rentabilidad puede depender de que el dueño esté detrás de la barra.",
+        "Pero dentro del sector hay una jerarquía clara: un grupo con varios locales, equipo autónomo y marca reconocida se acerca al múltiplo alto; un local único que funciona porque el dueño no falla un servicio se paga en la parte baja, o directamente como traspaso."
+      ],
+      "drivers": [
+        "Local: contrato de alquiler largo y transferible, o local en propiedad (se valora aparte)",
+        "Licencias en regla y transferibles: en muchas ciudades valen tanto como el negocio",
+        "Equipo que funciona sin el dueño: jefe de cocina y sala consolidados",
+        "Números claros: en un sector con fama de opacidad, la contabilidad limpia se paga con prima"
+      ],
+      "perfil_comprador": "Grupos de restauración en expansión, hosteleros que quieren un segundo local y, en hoteles, cadenas e inversores inmobiliarios. El comprador profesional paga por sistemas y ubicación; el particular, por el negocio en marcha.",
+      "error_comun": "Valorar sobre el EBITDA “real” sin normalizar: si el dueño no se pone sueldo, el comprador reconstruirá los números y la cifra puede cambiar mucho. Mejor llegar con las cuentas normalizadas de casa."
+    },
+    "salud": {
+      "titulo_h1": "¿Cuánto vale una clínica o empresa de salud?",
+      "meta_title": "Cuánto vale mi clínica | Valoración gratis del sector salud",
+      "meta_description": "Calcula gratis cuánto vale tu clínica dental, veterinaria, de fisioterapia o centro médico. Múltiplos del sector salud y por qué los fondos pagan primas por consolidar.",
+      "intro": [
+        "El sector salud vive un momento dulce de valoraciones en España: los fondos de private equity llevan años consolidando clínicas dentales, veterinarias, oftalmológicas y de reproducción asistida, y esa demanda compradora empuja los múltiplos a la banda de 6-10 veces EBITDA.",
+        "¿Por qué pagan tanto? Ingresos recurrentes (los pacientes vuelven), demanda que no depende del ciclo económico y capacidad de crear grupos: comprar diez clínicas y gestionarlas como una sola multiplica el valor del conjunto. Si tu clínica encaja en una de esas plataformas, hay comprador dispuesto a pagar prima."
+      ],
+      "drivers": [
+        "Recurrencia de pacientes y base de historiales activa: es la cartera del negocio",
+        "Cuadro profesional que permanece: sin médicos no hay clínica que comprar",
+        "Acuerdos con aseguradoras y mutuas: canal de pacientes estable y predecible",
+        "Instalaciones y equipamiento al día: el CAPEX pendiente se negocia a la baja"
+      ],
+      "perfil_comprador": "Grupos y plataformas respaldadas por private equity (el comprador más activo y el que mejor paga), grupos hospitalarios y otros profesionales del sector en expansión. Es de los pocos sectores donde el vendedor puede provocar una subasta competitiva.",
+      "error_comun": "Firmar exclusividad con el primer grupo que llama sin testar el mercado. En salud hay varios compradores potenciales para casi cualquier clínica rentable: comparar ofertas puede suponer 1-2 múltiplos de diferencia."
+    },
+    "construccion": {
+      "titulo_h1": "¿Cuánto vale una empresa de construcción?",
+      "meta_title": "Cuánto vale mi constructora | Valoración gratis de construcción",
+      "meta_description": "Calcula gratis cuánto vale tu constructora o empresa de reformas e instalaciones. Múltiplos del sector, el peso de la cartera de obra y la ciclicidad.",
+      "intro": [
+        "La construcción se valora con múltiplos prudentes (3-6 veces EBITDA) porque el mercado no olvida: es el sector más cíclico de la economía española, y el comprador descuenta que los años buenos no duran para siempre.",
+        "Dicho esto, hay constructoras y constructoras. Una empresa con cartera de obra contratada a dos años vista, clasificaciones para obra pública y especialización técnica (instalaciones, rehabilitación energética, industrial) se defiende mucho mejor que una generalista que empieza cada año de cero."
+      ],
+      "drivers": [
+        "Cartera de obra contratada: ventas futuras ya firmadas son el mejor argumento de venta",
+        "Clasificaciones de contratista del Estado: llave de la obra pública, cuestan años",
+        "Especialización con barreras técnicas: instalaciones, energía, rehabilitación",
+        "Estructura ligera: subcontratación flexible aguanta mejor el ciclo que plantilla fija grande"
+      ],
+      "perfil_comprador": "Constructoras mayores que compran capacidad, clasificaciones o presencia geográfica, y grupos de servicios (facilities, energía) que integran hacia la obra. El comprador financiero puro es raro: el sector exige conocimiento del oficio.",
+      "error_comun": "Valorar sobre el EBITDA del mejor año del ciclo. El comprador usará la media de 3-5 años o el año normalizado; anclar la negociación en el pico solo retrasa el acuerdo."
+    },
+    "logistica": {
+      "titulo_h1": "¿Cuánto vale una empresa de logística o transporte?",
+      "meta_title": "Cuánto vale mi empresa de transporte | Valoración gratis de logística",
+      "meta_description": "Calcula gratis cuánto vale tu empresa de transporte o logística. Múltiplos del sector, el valor de contratos y flota, y la ola de consolidación actual.",
+      "intro": [
+        "El transporte y la logística españoles viven una consolidación silenciosa: miles de empresas medianas y familiares, presión de márgenes, escasez de conductores y clientes que quieren proveedores más grandes. Resultado: los operadores medianos y grandes están comprando, y una empresa bien posicionada tiene comprador natural.",
+        "El múltiplo (4-7 veces EBITDA) depende sobre todo de qué tipo de negocio seas: la logística con contrato y almacén (ingresos recurrentes) se paga arriba; el transporte puro por carretera con precios spot, abajo."
+      ],
+      "drivers": [
+        "Contratos logísticos plurianuales frente a carga spot: la recurrencia manda",
+        "Clientes ancla solventes y diversificados: ninguno debería superar el 25 %",
+        "Flota renovada o estrategia asset-light clara: el comprador valora ambas si son coherentes",
+        "Conductores y licencias en regla: en plena escasez, la plantilla estable es un activo"
+      ],
+      "perfil_comprador": "Operadores logísticos en expansión (nacionales y europeos), grupos que consolidan rutas o especialidades (frío, farma, e-commerce) y fondos que apuestan por la consolidación del sector.",
+      "error_comun": "Ignorar el estado real de la flota en el precio. Los camiones al final de su vida útil son CAPEX inminente para el comprador: renovar antes de vender (o asumir el descuento) debe ser una decisión calculada, no una sorpresa en la due diligence."
+    },
+    "otros": {
+      "titulo_h1": "¿Cuánto vale mi empresa? (otros sectores)",
+      "meta_title": "Cuánto vale mi empresa | Valoración gratuita online",
+      "meta_description": "¿Tu sector no encaja en las categorías habituales? Calcula gratis una valoración orientativa de tu empresa con múltiplos genéricos de mercado.",
+      "intro": [
+        "No todas las empresas encajan en una etiqueta sectorial, y no pasa nada: los fundamentos de la valoración son los mismos. Usamos un rango genérico de mercado (4-7 veces EBITDA) que refleja lo que se paga por una pyme española rentable sin las primas ni los descuentos de sectores concretos.",
+        "Lo que de verdad moverá tu valoración dentro (o fuera) de ese rango son los factores universales: recurrencia de ingresos, dependencia del dueño, diversificación de clientes y calidad de la información financiera."
+      ],
+      "drivers": [
+        "Ingresos que se repiten sin esfuerzo comercial nuevo cada año",
+        "Negocio que funciona sin el dueño en el día a día",
+        "Cartera de clientes repartida: sin dependencias peligrosas",
+        "Contabilidad limpia y trazable: la confianza abarata la due diligence y sube el precio"
+      ],
+      "perfil_comprador": "Depende del negocio: competidores, grupos en diversificación, inversores particulares y search funds que buscan pymes rentables de cualquier sector con buen equipo directivo.",
+      "error_comun": "Pensar que “mi empresa es única y no se puede comparar”. Para el comprador siempre hay alternativas comparables; la unicidad hay que demostrarla con números (márgenes superiores, crecimiento, contratos), no declararla."
+    }
+  }
+}

@@ -1,0 +1,91 @@
+﻿---
+/**
+ * Página SEO por sector (programmatic SEO).
+ * El copy sale de sectores-paginas.json; múltiplos y margen, de sectores.json.
+ * Añadir un sector nuevo = añadirlo a ambos JSON. Cero código.
+ */
+import Base from "../../layouts/Base.astro";
+import sectoresData from "../../config/sectores.json";
+import paginasData from "../../config/sectores-paginas.json";
+
+export function getStaticPaths() {
+  return Object.keys(paginasData.paginas).map((id) => ({
+    params: { sector: id },
+  }));
+}
+
+const { sector: sectorId } = Astro.params;
+const pagina = paginasData.paginas[sectorId];
+const sector = sectoresData.sectores.find((s) => s.id === sectorId);
+
+// JSON-LD: servicio de valoración específico del sector
+const schemaService = {
+  "@context": "https://schema.org",
+  "@type": "FinancialService",
+  name: pagina.titulo_h1,
+  description: pagina.meta_description,
+  areaServed: "ES",
+  priceRange: "Gratis",
+};
+---
+
+<Base
+  title={pagina.meta_title}
+  description={pagina.meta_description}
+  path={`/sectores/${sectorId}`}
+>
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(schemaService)} />
+
+  <div class="container pagina-contenido">
+    <h1>{pagina.titulo_h1}</h1>
+
+    {pagina.intro.map((parrafo) => <p>{parrafo}</p>)}
+
+    <div class="sector-datos">
+      <div class="sector-dato">
+        <span class="sector-dato-valor">{sector.multiplo_min}x – {sector.multiplo_max}x</span>
+        <span class="sector-dato-label">Múltiplo EV/EBITDA del sector</span>
+      </div>
+      <div class="sector-dato">
+        <span class="sector-dato-valor">{Math.round(sector.margen_ebitda_default * 100)} %</span>
+        <span class="sector-dato-label">Margen EBITDA típico</span>
+      </div>
+    </div>
+
+    <p class="text-center" style="margin-top: 1.5rem;">
+      <a href={`/?sector=${sectorId}#calculadora`} class="btn btn-primary btn-lg">
+        Calcular el valor de mi empresa
+      </a>
+      <br />
+      <span style="font-size: 0.85rem; color: var(--color-gray-500);">
+        Gratis, al momento y sin dar tu teléfono. Tu sector saldrá ya seleccionado.
+      </span>
+    </p>
+
+    <h2>Qué sube el valor de una empresa de este sector</h2>
+    <ul>
+      {pagina.drivers.map((driver) => <li>{driver}</li>)}
+    </ul>
+
+    <h2>Quién compra empresas como la tuya</h2>
+    <p>{pagina.perfil_comprador}</p>
+
+    <h2>El error más común al valorarla</h2>
+    <p>{pagina.error_comun}</p>
+
+    <h2>Cómo calculamos tu valoración</h2>
+    <p>
+      Multiplicamos tu EBITDA por el múltiplo del sector ({sector.multiplo_min}x–{sector.multiplo_max}x)
+      y te damos un rango honesto, no una cifra única inventada. Si no conoces tu EBITDA,
+      lo estimamos con el margen típico del sector ({Math.round(sector.margen_ebitda_default * 100)} %)
+      sobre tu facturación. Puedes ver la metodología completa en
+      <a href="/como-valoramos">cómo valoramos</a>.
+    </p>
+
+    <p style="margin-top: 2rem;">
+      <a href={`/?sector=${sectorId}#calculadora`} class="btn btn-primary">Probar la calculadora</a>
+      &nbsp;&nbsp;
+      <a href="/sectores" class="btn btn-secondary">Ver otros sectores</a>
+    </p>
+  </div>
+</Base>

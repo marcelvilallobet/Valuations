@@ -1,0 +1,34 @@
+﻿---
+/**
+ * Hub de sectores: enlaza a todas las guías. Bueno para usuarios y para SEO interno.
+ */
+import Base from "../../layouts/Base.astro";
+import sectoresData from "../../config/sectores.json";
+import paginasData from "../../config/sectores-paginas.json";
+
+const sectores = sectoresData.sectores.filter((s) => paginasData.paginas[s.id]);
+---
+
+<Base
+  title="Cuánto vale una empresa según su sector | Guías de valoración"
+  description="Guías de valoración por sector: múltiplos EV/EBITDA reales, qué sube el valor y quién compra. Tecnología, industria, hostelería, salud y más."
+  path="/sectores"
+>
+  <div class="container pagina-contenido">
+    <h1>¿Cuánto vale una empresa de tu sector?</h1>
+    <p>
+      El sector es el primer factor de cualquier valoración: define el múltiplo que los
+      compradores pagan. Elige el tuyo y descubre los múltiplos reales, qué sube el valor
+      y quién está comprando empresas como la tuya.
+    </p>
+
+    <div class="sectores-grid">
+      {sectores.map((s) => (
+        <a href={`/sectores/${s.id}`} class="sector-card">
+          <strong>{s.nombre}</strong>
+          <span>{s.multiplo_min}x – {s.multiplo_max}x EBITDA</span>
+        </a>
+      ))}
+    </div>
+  </div>
+</Base>

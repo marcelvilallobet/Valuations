@@ -147,6 +147,13 @@
     });
   }
 
+  /** Evento de analítica (Plausible o compatible). No hace nada si no está cargada. */
+  function track(evento, props) {
+    if (typeof window.plausible === "function") {
+      window.plausible(evento, props ? { props } : undefined);
+    }
+  }
+
   // ── Poblar el selector de sectores desde el JSON ──────────────────────────
   const selectSector = $("#in-sector");
   sectoresConfig.sectores.forEach((s) => {
@@ -155,6 +162,12 @@
     opt.textContent = s.nombre;
     selectSector.appendChild(opt);
   });
+
+  // Preselección por URL (?sector=xxx): las páginas de sector enlazan así
+  const sectorURL = new URLSearchParams(window.location.search).get("sector");
+  if (sectorURL && sectoresConfig.sectores.some((s) => s.id === sectorURL)) {
+    selectSector.value = sectorURL;
+  }
 
   // ── Tabs de nivel ─────────────────────────────────────────────────────────
   document.querySelectorAll(".nivel-tab").forEach((tab) => {
@@ -234,6 +247,7 @@
     ultimosInputs = inputs;
     mostrarResultado(resultado);
     enviarCalculoSilencioso(inputs, resultado);
+    track("Calculo", { nivel: String(nivelActivo), sector: sectorId });
   });
 
   // ── Mostrar resultado (gratis, enorme, sin pedir nada) ────────────────────
@@ -355,6 +369,7 @@
     }
 
     msgEl.classList.add("ok");
+    track("Lead", { perfil });
 
     // Si pidió el informe, generamos el PDF (carga diferida de pdfmake)
     if (perfil === "informe" && ultimoResultado) {

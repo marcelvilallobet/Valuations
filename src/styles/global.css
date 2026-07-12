@@ -634,6 +634,56 @@ a:hover { color: var(--color-blue-light); }
 .pagina-contenido th { background: var(--color-navy); color: var(--color-white); }
 .pagina-contenido tbody tr:nth-child(even) { background: var(--color-gray-100); }
 
+/* ── Páginas por sector ──────────────────────────────── */
+.sectores-grid {
+  display: grid;
+  gap: 0.9rem;
+  margin-top: 2rem;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+}
+
+.sector-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 1.1rem 1.25rem;
+  background: var(--color-white);
+  border: 1px solid var(--color-gray-200);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  text-decoration: none;
+  transition: border-color 0.15s ease, transform 0.1s ease;
+}
+
+.sector-card:hover { border-color: var(--color-blue); transform: translateY(-2px); }
+.sector-card strong { color: var(--color-navy); font-size: 1rem; }
+.sector-card span { color: var(--color-gray-500); font-size: 0.85rem; }
+
+/* Datos destacados en la página de sector */
+.sector-datos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin: 2rem 0 0.5rem;
+}
+
+.sector-dato {
+  background: var(--color-gray-100);
+  border-left: 4px solid var(--color-blue);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  padding: 1.1rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.sector-dato-valor {
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: var(--color-navy);
+}
+
+.sector-dato-label { font-size: 0.85rem; color: var(--color-gray-500); }
+
 /* ── Utilidades ──────────────────────────────────────── */
 .text-center { text-align: center; }
 .hidden { display: none !important; }

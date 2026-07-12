@@ -1,0 +1,20 @@
+﻿---
+/**
+ * Analítica sin cookies (Plausible o compatible, p.ej. Umami).
+ * Se configura en textos.json → "analitica": { activa, script_url, dominio }.
+ * Mientras activa=false no se carga NADA (cero peso, cero rastreo).
+ * Al no usar cookies, no requiere banner de consentimiento (coherente con
+ * nuestra promesa de privacidad).
+ */
+import textos from "../config/textos.json";
+const analitica = textos.analitica;
+const cargar = analitica && analitica.activa && analitica.dominio;
+---
+
+{cargar && (
+  <script
+    defer
+    data-domain={analitica.dominio}
+    src={analitica.script_url}
+  />
+)}

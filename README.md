@@ -32,12 +32,37 @@ Todo lo editable vive en `src/config/`:
 | `textos.json` | Marca, email, disclaimer, títulos SEO, copys del hero y el informe PDF |
 | `faq.json` | Preguntas y respuestas de la FAQ |
 | `ganchos.json` | Los 5 CTAs por perfil bajo el resultado |
+| `sectores-paginas.json` | El copy completo de cada página /sectores/ (SEO programático) |
+
+**Añadir un sector nuevo** = añadirlo a `sectores.json` (múltiplos) y a
+`sectores-paginas.json` (copy de su página). La página, el sitemap y los enlaces
+internos se generan solos en el siguiente build.
 
 Tras editar un JSON, el servidor de desarrollo recarga solo. En producción hace falta
 hacer commit + push (Netlify redespliega automáticamente).
 
 La tasa de crecimiento perpetuo del DCF (g = 2 %) está en `src/lib/dcf.js` (constante
 `G_TERMINAL`).
+
+## Analítica (sin cookies, sin banner)
+
+La web lleva integración con **Plausible** (o cualquier compatible, como Umami):
+analítica sin cookies, coherente con nuestra promesa de privacidad y sin necesidad
+de banner de consentimiento.
+
+**Activarla (5 minutos):**
+1. Crea una cuenta en https://plausible.io (o monta Umami gratis).
+2. Añade tu dominio en su panel.
+3. En `src/config/textos.json`, dentro de `"analitica"`: pon tu dominio en `"dominio"`
+   y cambia `"activa"` a `true`.
+4. Commit + push. Listo.
+
+**Eventos que ya se registran solos** (además de las visitas):
+- `Calculo` — cada vez que alguien calcula, con nivel y sector.
+- `Lead` — cada captura de email, con el perfil (informe, vender, socios...).
+
+La métrica clave a vigilar el primer mes: **% de visitantes que calculan** (objetivo
+>25 %). Está explicado en `docs/plan-crecimiento.md`.
 
 ## Estructura
 
