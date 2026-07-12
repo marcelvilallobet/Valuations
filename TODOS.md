@@ -28,9 +28,27 @@
 
 ---
 
+## Versiones / modos alternativos de valoración (segundas opiniones)
+
+Idea: montar variantes de la calculadora con los criterios de distintas personas y
+compararlas contra la versión actual (parámetros, múltiplos, ajustes). Sirve para
+validar nuestros números, para A/B testing y para tener "segundas opiniones" internas.
+
+- [ ] **Versión "modo Narcís"**: recoger los criterios/parámetros que diga Narcís y
+      montarla como variante (probablemente no sea buena — la premisa es precisamente
+      contrastarla con datos antes de descartar o incorporar nada).
+- [ ] **Versión "modo [otra persona]"**: ídem con otra opinión de referencia, para
+      tener al menos dos contrastes independientes.
+- [ ] Definir cómo comparar: misma empresa de prueba en los 3 modos → ver divergencia
+      de rangos. Si algún modo diverge mucho, entender por qué (puede haber una
+      lección para nuestros JSON).
+
+Nota técnica: con la arquitectura actual es barato — cada "modo" es solo otro juego
+de JSON (sectores/wacc/antiguedad alternativos). No hace falta tocar código.
+
 ## Otras mejoras técnicas pendientes
 
-- [ ] Páginas por sector en `/sectores/` (programmatic SEO) una vez validado el MVP.
+- [x] Páginas por sector en `/sectores/` (programmatic SEO). **HECHO** (9 páginas + hub).
 - [ ] Dashboard de proyecciones visual (gráfico de barras del FCF a 5 años) en el Nivel 3.
 - [ ] Modo comparativa: ver cómo está tu empresa vs. la media del sector.
 - [ ] Integración con CRM (HubSpot, Brevo) para el flujo de leads.
