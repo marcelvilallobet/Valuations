@@ -1,0 +1,48 @@
+﻿---
+/**
+ * Home: embudo completo.
+ * Hero → Calculadora → Resultado (+ informe + ganchos) → Autoridad → FAQ preview.
+ */
+import Base from "../layouts/Base.astro";
+import HeroHome from "../components/HeroHome.astro";
+import Calculadora from "../components/Calculadora.astro";
+import Resultado from "../components/Resultado.astro";
+import Autoridad from "../components/Autoridad.astro";
+import FAQ from "../components/FAQ.astro";
+import textos from "../config/textos.json";
+
+// JSON-LD específico: servicio de valoración financiera
+const schemaService = {
+  "@context": "https://schema.org",
+  "@type": "FinancialService",
+  name: `${textos.marca.nombre} — Valoración gratuita de empresas`,
+  description: textos.seo.description_home,
+  areaServed: "ES",
+  priceRange: "Gratis",
+  serviceType: "Valoración orientativa de empresas online",
+};
+---
+
+<Base title={textos.seo.titulo_home} description={textos.seo.description_home} path="/">
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(schemaService)} />
+
+  <HeroHome />
+
+  <Calculadora />
+
+  <div class="container">
+    <Resultado />
+  </div>
+
+  <Autoridad />
+
+  <section class="section">
+    <div class="container" style="max-width: 760px;">
+      <h2 class="text-center">Preguntas frecuentes</h2>
+      <FAQ limite={3} />
+      <p class="text-center" style="margin-top: 1.5rem;">
+        <a href="/faq" class="btn btn-secondary">Ver todas las preguntas</a>
+      </p>
+    </div>
+  </section>
+</Base>

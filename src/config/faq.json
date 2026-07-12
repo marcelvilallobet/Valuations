@@ -1,0 +1,44 @@
+﻿{
+  "faqs": [
+    {
+      "pregunta": "¿De dónde sale el número?",
+      "respuesta": "Usamos dos metodologías estándar en el sector: múltiplos EV/EBITDA (el precio que los compradores pagan por empresas similares) y DCF o Descuento de Flujos de Caja. Los parámetros se ajustan por sector y tamaño. El resultado refleja lo que suele pagarse en operaciones reales de compraventa de empresas similares a la tuya."
+    },
+    {
+      "pregunta": "¿Es fiable esta valoración?",
+      "respuesta": "Es orientativa. Te da una referencia útil basada en metodología real, pero no captura todo lo que un analista vería en profundidad: la calidad de tu cartera de clientes, el estado de tus contratos, deudas fuera de balance o la dependencia del negocio respecto al dueño. Úsala como punto de partida, no como cifra definitiva."
+    },
+    {
+      "pregunta": "¿Mis datos son confidenciales?",
+      "respuesta": "Completamente. La calculadora funciona en tu navegador: los datos financieros que introduces no se almacenan ni se transmiten a ningún servidor. Si solicitas el informe PDF, solo pedimos tu email para enviártelo, y ese dato se trata conforme al RGPD. Nunca vendemos ni compartimos datos con terceros."
+    },
+    {
+      "pregunta": "¿Por qué un rango y no una cifra exacta?",
+      "respuesta": "Porque así funciona el mercado. Una empresa no tiene un valor único: tiene un rango razonable dentro del que se mueve la negociación real. El límite inferior es lo que pagaría un comprador conservador; el superior, lo que pagaría uno estratégico. Darte una cifra exacta sería hacerte creer algo que no es real."
+    },
+    {
+      "pregunta": "¿Se tienen en cuenta las deudas?",
+      "respuesta": "La valoración que obtienes es el valor de la empresa (Enterprise Value o EV). Para obtener el valor del capital —lo que recibirías tú como propietario— deberías restar la deuda financiera neta y sumar la caja. Si no tienes deuda significativa, la diferencia es pequeña. En el informe PDF explicamos este ajuste en detalle."
+    },
+    {
+      "pregunta": "No sé mi EBITDA exacto, ¿qué hago?",
+      "respuesta": "Usa el Nivel 1 (rápido): solo necesitas la facturación. La calculadora estima el EBITDA aplicando el margen típico de tu sector. No será exacto, pero te dará una referencia razonable. Si tienes la última declaración del Impuesto de Sociedades o la cuenta de pérdidas y ganancias, puedes extraer el EBITDA y usar el Nivel 2."
+    },
+    {
+      "pregunta": "¿Cuánto se tarda en vender una empresa?",
+      "respuesta": "Entre 6 meses y 2 años, dependiendo del tamaño, el sector y las condiciones del mercado. El proceso incluye preparar la documentación, identificar compradores, negociar, hacer due diligence y cerrar la operación. Cuanto mejor preparada esté la empresa, más rápido y más alto suele cerrarse."
+    },
+    {
+      "pregunta": "¿Se puede aumentar el valor antes de vender?",
+      "respuesta": "Sí, y bastante. El valor de una empresa no está fijo: depende de métricas que se pueden mejorar. Crecer el EBITDA, diversificar clientes, reducir la dependencia del dueño o limpiar el balance son palancas que suben el múltiplo que pagarán por ti. Usa el Nivel 3 (proyecciones) para ver cuánto subiría tu valoración si creces un X% anual."
+    },
+    {
+      "pregunta": "Mis socios y yo no coincidimos en el valor, ¿por qué?",
+      "respuesta": "Es muy habitual. El valor de una empresa no es objetivo: depende de expectativas, necesidades y perspectivas de cada uno. Esta calculadora da una referencia neutral basada en metodología de mercado, útil como punto de partida común. Si el desacuerdo es relevante (compraventa de participaciones, por ejemplo), lo más conveniente es encargar una valoración pericial independiente."
+    },
+    {
+      "pregunta": "¿Cuánto cuesta una valoración profesional de verdad?",
+      "respuesta": "Entre 2.000 € y 10.000 € para una pyme, y bastante más para empresas grandes o con estructuras complejas. Una valoración profesional incluye análisis en profundidad, entrevistas con el equipo directivo, revisión de documentación y un informe que puede usarse ante compradores, socios o entidades financieras. Esta calculadora es una primera orientación gratuita, no un sustituto."
+    }
+  ]
+}

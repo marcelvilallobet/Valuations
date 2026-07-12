@@ -1,0 +1,66 @@
+﻿---
+/**
+ * Aviso legal básico (España/UE).
+ * ⚠ PLACEHOLDERS a rellenar: [NOMBRE_RESPONSABLE], [DOMICILIO_SOCIAL], [NIF], [EMAIL_CONTACTO], [DOMINIO]
+ */
+import Base from "../layouts/Base.astro";
+import textos from "../config/textos.json";
+---
+
+<Base
+  title={textos.seo.titulo_aviso_legal}
+  description="Aviso legal y condiciones de uso del sitio web."
+  path="/aviso-legal"
+>
+  <div class="container pagina-contenido">
+    <h1>Aviso legal</h1>
+
+    <h2>1. Datos identificativos</h2>
+    <p>
+      En cumplimiento de la Ley 34/2002, de 11 de julio, de Servicios de la Sociedad de la
+      Información y de Comercio Electrónico (LSSI-CE), se informa:
+    </p>
+    <p>
+      Titular: [NOMBRE_RESPONSABLE]<br />
+      NIF: [NIF]<br />
+      Domicilio: [DOMICILIO_SOCIAL]<br />
+      Email: [EMAIL_CONTACTO]<br />
+      Sitio web: [DOMINIO]
+    </p>
+
+    <h2>2. Objeto</h2>
+    <p>
+      Este sitio web ofrece una herramienta gratuita de valoración orientativa de empresas.
+      El resultado que proporciona es una estimación automática con fines meramente
+      informativos.
+    </p>
+
+    <h2>3. Exclusión de responsabilidad</h2>
+    <p>
+      La valoración generada por esta herramienta <strong>no constituye asesoramiento
+      financiero, fiscal, legal ni de inversión</strong>, ni una tasación formal a efectos
+      periciales, judiciales, fiscales o de cualquier otro tipo. El titular no se hace
+      responsable de las decisiones tomadas por los usuarios basándose en los resultados
+      de la herramienta.
+    </p>
+
+    <h2>4. Propiedad intelectual</h2>
+    <p>
+      Los contenidos de este sitio (textos, diseño, código, metodología divulgativa) son
+      propiedad del titular o se usan con licencia. Queda prohibida su reproducción sin
+      autorización expresa.
+    </p>
+
+    <h2>5. Condiciones de uso</h2>
+    <p>
+      El usuario se compromete a hacer un uso adecuado del sitio y a no emplearlo para
+      actividades ilícitas o contrarias a la buena fe.
+    </p>
+
+    <h2>6. Legislación aplicable</h2>
+    <p>
+      La relación entre el titular y el usuario se regirá por la normativa española y
+      europea vigente, siendo competentes los juzgados y tribunales españoles.
+    </p>
+  </div>
+</Base>

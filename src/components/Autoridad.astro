@@ -1,0 +1,13 @@
+﻿---
+import textos from "../config/textos.json";
+const autoridad = textos.autoridad;
+---
+
+<section class="section autoridad-section">
+  <div class="container">
+    <h2 class="text-center">{autoridad.titulo}</h2>
+    <ul class="autoridad-list">
+      {autoridad.items.map((item) => <li>{item}</li>)}
+    </ul>
+  </div>
+</section>

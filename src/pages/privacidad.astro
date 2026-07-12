@@ -1,0 +1,82 @@
+﻿---
+/**
+ * Política de privacidad RGPD (España/UE).
+ * ⚠ PLACEHOLDERS a rellenar: [NOMBRE_RESPONSABLE], [DOMICILIO_SOCIAL], [NIF], [EMAIL_CONTACTO]
+ */
+import Base from "../layouts/Base.astro";
+import textos from "../config/textos.json";
+---
+
+<Base
+  title={textos.seo.titulo_privacidad}
+  description="Política de privacidad y protección de datos conforme al RGPD."
+  path="/privacidad"
+>
+  <div class="container pagina-contenido">
+    <h1>Política de privacidad</h1>
+    <p>Última actualización: julio de 2026</p>
+
+    <h2>1. Responsable del tratamiento</h2>
+    <p>
+      Responsable: [NOMBRE_RESPONSABLE]<br />
+      NIF: [NIF]<br />
+      Domicilio: [DOMICILIO_SOCIAL]<br />
+      Email de contacto: [EMAIL_CONTACTO]
+    </p>
+
+    <h2>2. Qué datos tratamos y cuándo</h2>
+    <p>
+      <strong>La calculadora no envía tus datos financieros a ningún servidor con
+      información que te identifique.</strong> Los cálculos se realizan en tu navegador.
+    </p>
+    <p>Tratamos datos personales únicamente en estos casos:</p>
+    <ul>
+      <li>
+        <strong>Si solicitas el informe PDF u otro contenido:</strong> tu dirección de
+        email y, si lo indicas voluntariamente, tu teléfono y el motivo de tu consulta.
+      </li>
+      <li>
+        <strong>Datos de uso anónimos:</strong> al realizar un cálculo se registran de forma
+        anónima el sector, el nivel usado y los importes introducidos, sin ningún dato que
+        permita identificarte.
+      </li>
+    </ul>
+
+    <h2>3. Finalidad y base jurídica</h2>
+    <p>
+      Usamos tu email exclusivamente para enviarte lo que has solicitado (informe, guía,
+      novedades). La base jurídica es tu <strong>consentimiento expreso</strong> (art. 6.1.a
+      RGPD), que otorgas marcando la casilla correspondiente. Puedes retirarlo en cualquier
+      momento escribiendo a [EMAIL_CONTACTO].
+    </p>
+
+    <h2>4. Conservación</h2>
+    <p>
+      Conservamos tus datos mientras exista una relación activa contigo o hasta que
+      solicites su supresión. Los datos de cálculo anónimos se conservan con fines
+      estadísticos al no ser datos personales.
+    </p>
+
+    <h2>5. Destinatarios</h2>
+    <p>
+      No vendemos ni cedemos tus datos a terceros. Utilizamos Netlify (proveedor de
+      alojamiento y formularios) como encargado del tratamiento, que puede procesar datos
+      en servidores fuera de la UE bajo cláusulas contractuales tipo aprobadas por la
+      Comisión Europea.
+    </p>
+
+    <h2>6. Tus derechos</h2>
+    <p>
+      Puedes ejercer tus derechos de acceso, rectificación, supresión, oposición,
+      limitación y portabilidad escribiendo a [EMAIL_CONTACTO]. También puedes reclamar
+      ante la Agencia Española de Protección de Datos (www.aepd.es).
+    </p>
+
+    <h2>7. Cookies</h2>
+    <p>
+      Esta web no utiliza cookies de seguimiento ni analítica de terceros. Solo usamos
+      almacenamiento de sesión del navegador (sessionStorage) con fines técnicos, que se
+      elimina al cerrar la pestaña.
+    </p>
+  </div>
+</Base>

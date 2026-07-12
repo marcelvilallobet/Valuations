@@ -1,0 +1,10 @@
+﻿{
+  "descripcion": "Factor (0-1) que desplaza el multiplo dentro del rango sectorial. 0 = minimo, 1 = maximo.",
+  "tramos": [
+    { "anios_min": 0,  "anios_max": 2,    "factor": 0.00 },
+    { "anios_min": 2,  "anios_max": 5,    "factor": 0.15 },
+    { "anios_min": 5,  "anios_max": 10,   "factor": 0.35 },
+    { "anios_min": 10, "anios_max": 20,   "factor": 0.60 },
+    { "anios_min": 20, "anios_max": 9999, "factor": 0.85 }
+  ]
+}

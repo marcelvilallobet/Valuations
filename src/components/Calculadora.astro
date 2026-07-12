@@ -1,0 +1,436 @@
+﻿---
+/**
+ * Calculadora de valoración con 3 niveles.
+ * Toda la lógica de cálculo vive en src/lib/ y los parámetros en src/config/.
+ * El script de abajo se encarga de: tabs, cálculo, resultado, envío silencioso
+ * a Netlify (form "calculos"), ganchos de perfil y captura de lead.
+ */
+---
+
+<!-- Form estático oculto para que Netlify detecte "calculos" en build -->
+<form name="calculos" data-netlify="true" hidden aria-hidden="true">
+  <input type="text" name="nivel" />
+  <input type="text" name="sector" />
+  <input type="text" name="ventas" />
+  <input type="text" name="ebitda" />
+  <input type="text" name="antiguedad" />
+  <input type="text" name="rango_min" />
+  <input type="text" name="rango_max" />
+</form>
+
+<section class="section" id="calculadora">
+  <div class="container">
+    <div class="calculadora">
+      <h2 class="text-center">Calcula el valor de tu empresa</h2>
+      <p class="text-center" style="color: var(--color-gray-500); margin-bottom: 1.5rem;">
+        Elige cuánta información quieres darnos. Más datos = valoración más ajustada.
+      </p>
+
+      <!-- Selector de nivel -->
+      <div class="nivel-tabs" role="tablist" aria-label="Nivel de detalle">
+        <button type="button" class="nivel-tab" role="tab" aria-selected="true" data-nivel="1" id="tab-1">
+          <strong>Rápido</strong>
+          <span>Solo facturación · 30 seg</span>
+        </button>
+        <button type="button" class="nivel-tab" role="tab" aria-selected="false" data-nivel="2" id="tab-2">
+          <strong>Medio</strong>
+          <span>Con tu EBITDA real</span>
+        </button>
+        <button type="button" class="nivel-tab" role="tab" aria-selected="false" data-nivel="3" id="tab-3">
+          <strong>Avanzado</strong>
+          <span>Simula tu crecimiento</span>
+        </button>
+      </div>
+
+      <form id="form-calculadora" novalidate>
+        <!-- Facturación: común a todos los niveles -->
+        <div class="campo">
+          <label for="in-ventas">Facturación anual (€)</label>
+          <input type="number" id="in-ventas" inputmode="numeric" min="0" step="1000" placeholder="Ej.: 1.500.000" required />
+          <p class="ayuda">Las ventas totales de tu último año completo.</p>
+        </div>
+
+        <!-- Sector: común a todos los niveles -->
+        <div class="campo">
+          <label for="in-sector">Sector</label>
+          <select id="in-sector" required>
+            <option value="" disabled selected>Elige tu sector</option>
+          </select>
+        </div>
+
+        <!-- EBITDA: niveles 2 y 3 -->
+        <div class="campo campo-nivel-2 campo-nivel-3 hidden">
+          <label for="in-ebitda">EBITDA anual (€)</label>
+          <input type="number" id="in-ebitda" inputmode="numeric" step="1000" placeholder="Ej.: 250.000" />
+          <p class="ayuda">Beneficio antes de intereses, impuestos y amortizaciones. Si no lo sabes, usa el nivel Rápido.</p>
+        </div>
+
+        <!-- Antigüedad: nivel 2 -->
+        <div class="campo campo-nivel-2 hidden">
+          <label for="in-antiguedad">Años de antigüedad de la empresa</label>
+          <input type="number" id="in-antiguedad" inputmode="numeric" min="0" max="200" placeholder="Ej.: 15" />
+          <p class="ayuda">Una empresa consolidada suele valorarse en la parte alta del rango.</p>
+        </div>
+
+        <!-- Proyecciones: nivel 3 -->
+        <div class="campo campo-nivel-3 hidden">
+          <label>¿Cuánto crees que crecerás cada año? (%)</label>
+          <p class="ayuda" style="margin-bottom: 0.6rem;">Juega con las hipótesis y mira cómo cambia el valor. Puedes poner números distintos cada año.</p>
+          <div class="crecimiento-grid">
+            <div class="campo">
+              <label for="in-g1">Año 1</label>
+              <input type="number" id="in-g1" inputmode="decimal" step="0.5" value="5" />
+            </div>
+            <div class="campo">
+              <label for="in-g2">Año 2</label>
+              <input type="number" id="in-g2" inputmode="decimal" step="0.5" value="5" />
+            </div>
+            <div class="campo">
+              <label for="in-g3">Año 3</label>
+              <input type="number" id="in-g3" inputmode="decimal" step="0.5" value="5" />
+            </div>
+            <div class="campo">
+              <label for="in-g4">Año 4</label>
+              <input type="number" id="in-g4" inputmode="decimal" step="0.5" value="5" />
+            </div>
+            <div class="campo">
+              <label for="in-g5">Año 5</label>
+              <input type="number" id="in-g5" inputmode="decimal" step="0.5" value="5" />
+            </div>
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-lg btn-calcular" id="btn-calcular">
+          Calcular valoración
+        </button>
+        <p class="form-msg error" id="calc-error" role="alert"></p>
+
+        <!-- Mata la objeción nº 1 (desconfianza) justo donde surge -->
+        <p class="nota-confianza">
+          🔒 Tus datos no salen de tu navegador. No pedimos teléfono ni email para darte el resultado.
+        </p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<script>
+  import sectoresConfig from "../config/sectores.json";
+  import waccConfig from "../config/wacc.json";
+  import antiguedadConfig from "../config/antiguedad.json";
+  import textosConfig from "../config/textos.json";
+  import { calcularNivel1, calcularNivel2 } from "../lib/valoracion.js";
+  import { calcularDCF } from "../lib/dcf.js";
+
+  // ── Estado ────────────────────────────────────────────────────────────────
+  let nivelActivo = 1;
+  let ultimoResultado = null; // guarda el último cálculo para el PDF
+  let ultimosInputs = null;
+
+  // ── Utilidades ────────────────────────────────────────────────────────────
+  const $ = (sel) => document.querySelector(sel);
+
+  const fmtEUR = (n) =>
+    new Intl.NumberFormat("es-ES", {
+      style: "currency",
+      currency: "EUR",
+      maximumFractionDigits: 0,
+    }).format(n);
+
+  /** Envío de formularios a Netlify Forms por fetch (x-www-form-urlencoded). */
+  function postNetlify(formName, data) {
+    const body = new URLSearchParams({ "form-name": formName, ...data }).toString();
+    return fetch("/", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body,
+    });
+  }
+
+  // ── Poblar el selector de sectores desde el JSON ──────────────────────────
+  const selectSector = $("#in-sector");
+  sectoresConfig.sectores.forEach((s) => {
+    const opt = document.createElement("option");
+    opt.value = s.id;
+    opt.textContent = s.nombre;
+    selectSector.appendChild(opt);
+  });
+
+  // ── Tabs de nivel ─────────────────────────────────────────────────────────
+  document.querySelectorAll(".nivel-tab").forEach((tab) => {
+    tab.addEventListener("click", () => {
+      nivelActivo = parseInt(tab.dataset.nivel, 10);
+      document.querySelectorAll(".nivel-tab").forEach((t) => {
+        t.setAttribute("aria-selected", t === tab ? "true" : "false");
+      });
+      // Muestra/oculta campos según nivel
+      document.querySelectorAll("[class*='campo-nivel-']").forEach((el) => {
+        el.classList.add("hidden");
+      });
+      document.querySelectorAll(`.campo-nivel-${nivelActivo}`).forEach((el) => {
+        el.classList.remove("hidden");
+      });
+      $("#calc-error").textContent = "";
+    });
+  });
+
+  // ── Cálculo ───────────────────────────────────────────────────────────────
+  $("#form-calculadora").addEventListener("submit", (e) => {
+    e.preventDefault();
+    const errorEl = $("#calc-error");
+    errorEl.textContent = "";
+
+    const ventas = parseFloat($("#in-ventas").value);
+    const sectorId = selectSector.value;
+
+    if (!ventas || ventas <= 0) {
+      errorEl.textContent = "Introduce tu facturación anual.";
+      $("#in-ventas").focus();
+      return;
+    }
+    if (!sectorId) {
+      errorEl.textContent = "Elige tu sector.";
+      selectSector.focus();
+      return;
+    }
+
+    let resultado;
+    let inputs = { ventas, sectorId, nivel: nivelActivo };
+
+    try {
+      if (nivelActivo === 1) {
+        resultado = calcularNivel1(ventas, sectorId, sectoresConfig, antiguedadConfig);
+      } else if (nivelActivo === 2) {
+        const ebitda = parseFloat($("#in-ebitda").value);
+        const anios = parseFloat($("#in-antiguedad").value) || 0;
+        if (!ebitda || ebitda <= 0) {
+          errorEl.textContent = "Introduce tu EBITDA (o usa el nivel Rápido si no lo conoces).";
+          $("#in-ebitda").focus();
+          return;
+        }
+        inputs = { ...inputs, ebitda, anios };
+        resultado = calcularNivel2(ventas, ebitda, sectorId, anios, sectoresConfig, antiguedadConfig);
+      } else {
+        const ebitda = parseFloat($("#in-ebitda").value);
+        if (!ebitda || ebitda <= 0) {
+          errorEl.textContent = "Introduce tu EBITDA para poder proyectar los flujos.";
+          $("#in-ebitda").focus();
+          return;
+        }
+        // Las tasas se introducen en % y se convierten a decimal
+        const tasas = ["#in-g1", "#in-g2", "#in-g3", "#in-g4", "#in-g5"].map(
+          (id) => (parseFloat($(id).value) || 0) / 100
+        );
+        inputs = { ...inputs, ebitda, tasas };
+        resultado = calcularDCF(ventas, ebitda, sectorId, tasas, waccConfig, sectoresConfig);
+      }
+    } catch (err) {
+      errorEl.textContent = "Ha ocurrido un error en el cálculo. Revisa los datos.";
+      console.error(err);
+      return;
+    }
+
+    ultimoResultado = resultado;
+    ultimosInputs = inputs;
+    mostrarResultado(resultado);
+    enviarCalculoSilencioso(inputs, resultado);
+  });
+
+  // ── Mostrar resultado (gratis, enorme, sin pedir nada) ────────────────────
+  function mostrarResultado(r) {
+    $("#resultado-rango").textContent = `${fmtEUR(r.valorMin)} — ${fmtEUR(r.valorMax)}`;
+    $("#resultado-central").textContent = fmtEUR(r.valorCentral);
+
+    const metodos = {
+      "multiplos-nivel1": `Calculado por múltiplos EV/EBITDA del sector ${r.sectorNombre} (EBITDA estimado: ${fmtEUR(r.ebitdaEstimado)}).`,
+      "multiplos-nivel2": `Calculado por múltiplos EV/EBITDA del sector ${r.sectorNombre} con tu EBITDA real.`,
+      "dcf-nivel3": `Calculado por DCF (flujos a 5 años) con un WACC del ${(r.waccUsado * 100).toFixed(1)} % elegido según tu tamaño y sector.`,
+    };
+    $("#resultado-metodo").textContent = metodos[r.metodologia] || "";
+
+    // Guarda el rango en el hidden del form de leads
+    $("#lead-resultado").value = `${r.valorMin} - ${r.valorMax} EUR (${r.metodologia})`;
+
+    const resultadoEl = $("#resultado");
+    resultadoEl.hidden = false;
+    resultadoEl.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
+  // ── Envío silencioso del cálculo (solo el primero por sesión) ─────────────
+  function enviarCalculoSilencioso(inputs, r) {
+    if (sessionStorage.getItem("calculo_enviado")) return;
+    sessionStorage.setItem("calculo_enviado", "1");
+
+    postNetlify("calculos", {
+      nivel: String(inputs.nivel),
+      sector: inputs.sectorId,
+      ventas: String(inputs.ventas),
+      ebitda: String(inputs.ebitda ?? ""),
+      antiguedad: String(inputs.anios ?? ""),
+      rango_min: String(r.valorMin),
+      rango_max: String(r.valorMax),
+    }).catch(() => {
+      /* Silencioso: si falla (p.ej. en local), no molestamos al usuario */
+    });
+  }
+
+  // ── Oferta de informe PDF ─────────────────────────────────────────────────
+  const ofertaEl = $("#oferta-informe");
+
+  $("#btn-pedir-informe").addEventListener("click", () => {
+    prepararFormLead("informe", "Recibe el informe detallado en PDF", "Con el desglose completo del cálculo y cómo defender tu valoración ante un comprador.");
+  });
+
+  // ── Ganchos por perfil ────────────────────────────────────────────────────
+  const titulosGancho = {
+    vender: ["Te enviamos la guía del proceso de venta", "Déjanos tu email y te la mandamos. Sin compromiso."],
+    crecer: ["Te avisamos con ideas para subir tu valoración", "Déjanos tu email. También puedes probar ya el nivel Avanzado."],
+    socios: ["Te explicamos cómo valorar una participación", "Déjanos tu email y te lo explicamos con calma."],
+    tramite: ["Cuéntanos tu caso", "Explícanos para qué necesitas la valoración y te orientamos."],
+    newsletter: ["Te avisamos de novedades en tu sector", "Análisis de múltiplos y mercado, sin spam."],
+  };
+
+  document.querySelectorAll(".btn-gancho").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const perfil = btn.dataset.perfil;
+
+      // El gancho "crecer" lleva además al nivel 3 (modo simulador)
+      if (perfil === "crecer") {
+        document.getElementById("tab-3").click();
+        document.getElementById("calculadora").scrollIntoView({ behavior: "smooth" });
+      }
+
+      const [titulo, subtexto] = titulosGancho[perfil] || ["Déjanos tu email", ""];
+      prepararFormLead(perfil, titulo, subtexto);
+    });
+  });
+
+  function prepararFormLead(perfil, titulo, subtexto) {
+    $("#lead-perfil").value = perfil;
+    $("#form-lead-titulo").textContent = titulo;
+    $("#form-lead-subtexto").textContent = subtexto;
+    // El campo libre solo aparece para el perfil "tramite"
+    $("#lead-mensaje").classList.toggle("hidden", perfil !== "tramite");
+    ofertaEl.hidden = false;
+    ofertaEl.scrollIntoView({ behavior: "smooth", block: "center" });
+    $("#lead-email").focus();
+  }
+
+  // ── Envío del lead ────────────────────────────────────────────────────────
+  $("#form-lead").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const msgEl = $("#lead-msg");
+    const email = $("#lead-email").value.trim();
+    const rgpd = $("#lead-rgpd").checked;
+    const perfil = $("#lead-perfil").value;
+
+    msgEl.className = "form-msg";
+    msgEl.textContent = "";
+
+    if (!email || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) {
+      msgEl.classList.add("error");
+      msgEl.textContent = "Introduce un email válido.";
+      return;
+    }
+    if (!rgpd) {
+      msgEl.classList.add("error");
+      msgEl.textContent = "Debes aceptar la política de privacidad.";
+      return;
+    }
+
+    const btn = $("#lead-submit");
+    btn.disabled = true;
+    btn.textContent = "Enviando…";
+
+    try {
+      await postNetlify("leads", {
+        email,
+        perfil,
+        resultado_valoracion: $("#lead-resultado").value,
+        mensaje: $("#lead-mensaje").value || "",
+        rgpd: "si",
+      });
+    } catch {
+      /* En local no hay endpoint de Netlify: continuamos igualmente */
+    }
+
+    msgEl.classList.add("ok");
+
+    // Si pidió el informe, generamos el PDF (carga diferida de pdfmake)
+    if (perfil === "informe" && ultimoResultado) {
+      msgEl.textContent = "Generando tu informe…";
+      try {
+        const { generarPDF } = await import("../lib/informe-pdf.js");
+        await generarPDF(ultimoResultado, ultimosInputs, textosConfig);
+        msgEl.textContent = "¡Listo! Tu informe se está descargando.";
+      } catch (err) {
+        console.error(err);
+        msgEl.classList.remove("ok");
+        msgEl.classList.add("error");
+        msgEl.textContent = "No se pudo generar el PDF. Inténtalo de nuevo.";
+      }
+    } else {
+      msgEl.textContent = "¡Recibido! Te escribiremos muy pronto.";
+    }
+
+    btn.disabled = false;
+    btn.textContent = "Enviar";
+
+    // Cierre suave: ofrecemos una llamada con un analista (100 % opcional)
+    $("#tel-email-copia").value = email;
+    const cierreEl = $("#cierre-suave");
+    cierreEl.hidden = false;
+    cierreEl.scrollIntoView({ behavior: "smooth", block: "center" });
+  });
+
+  // ── Cierre suave: llamada con analista (teléfono opcional) ────────────────
+  const telInput = $("#lead-telefono");
+  const telSubmit = $("#tel-submit");
+
+  /** Valida un teléfono razonable: 9–15 dígitos, admite +, espacios y guiones. */
+  const telValido = (v) => {
+    const digitos = v.replace(/[\s\-.()]/g, "").replace(/^\+/, "");
+    return /^\d{9,15}$/.test(digitos);
+  };
+
+  // El botón solo se activa con un teléfono válido: nunca hay mensaje de error.
+  telInput.addEventListener("input", () => {
+    telSubmit.disabled = !telValido(telInput.value.trim());
+  });
+
+  $("#form-telefono").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const tel = telInput.value.trim();
+    if (!telValido(tel)) return; // el botón ya lo impide; doble seguridad
+
+    telSubmit.disabled = true;
+    telSubmit.textContent = "Enviando…";
+
+    try {
+      await postNetlify("leads", {
+        email: $("#tel-email-copia").value,
+        perfil: "telefono-opcional",
+        telefono: tel,
+        rgpd: "si",
+      });
+    } catch {
+      /* silencioso en local */
+    }
+
+    // Confirmación: sustituimos el formulario por el mensaje de éxito
+    $("#form-telefono").hidden = true;
+    const telMsg = $("#tel-msg");
+    telMsg.className = "form-msg ok";
+    telMsg.textContent = "";
+    const cierreEl = $("#cierre-suave");
+    cierreEl.querySelector("h3").textContent = "¡Hecho! Te llamamos en 1–2 días laborables.";
+    cierreEl.querySelector(".cierre-suave-texto").innerHTML =
+      "Será una llamada corta y sin compromiso. Si te surge algo antes, escríbenos cuando quieras.";
+    cierreEl.querySelector(".cierre-suave-bullets").remove();
+  });
+
+  // "Ahora no, gracias": se cierra sin culpabilizar y sin insistir
+  $("#tel-no-gracias").addEventListener("click", () => {
+    $("#cierre-suave").hidden = true;
+  });
+</script>

@@ -1,0 +1,22 @@
+﻿{
+  "tramos": [
+    { "ventas_min": 0,         "ventas_max": 1000000,      "wacc_min": 0.20, "wacc_max": 0.22 },
+    { "ventas_min": 1000000,   "ventas_max": 5000000,      "wacc_min": 0.18, "wacc_max": 0.20 },
+    { "ventas_min": 5000000,   "ventas_max": 10000000,     "wacc_min": 0.16, "wacc_max": 0.18 },
+    { "ventas_min": 10000000,  "ventas_max": 20000000,     "wacc_min": 0.15, "wacc_max": 0.16 },
+    { "ventas_min": 20000000,  "ventas_max": 50000000,     "wacc_min": 0.13, "wacc_max": 0.15 },
+    { "ventas_min": 50000000,  "ventas_max": 100000000,    "wacc_min": 0.11, "wacc_max": 0.13 },
+    { "ventas_min": 100000000, "ventas_max": 999999999999, "wacc_min": 0.08, "wacc_max": 0.10 }
+  ],
+  "ajustes_sector": {
+    "tecnologia":    -0.01,
+    "industria":      0.01,
+    "retail":         0.02,
+    "servicios":     -0.02,
+    "hosteleria":     0.03,
+    "salud":         -0.02,
+    "construccion":   0.03,
+    "logistica":      0.01,
+    "otros":          0.00
+  }
+}

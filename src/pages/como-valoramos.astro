@@ -1,0 +1,113 @@
+﻿---
+/**
+ * Página de metodología: explica múltiplos y DCF en lenguaje llano.
+ * Genera confianza (E-E-A-T) y captura búsquedas informacionales (SEO).
+ */
+import Base from "../layouts/Base.astro";
+import textos from "../config/textos.json";
+import sectoresData from "../config/sectores.json";
+---
+
+<Base
+  title={textos.seo.titulo_como_valoramos}
+  description={textos.seo.description_como_valoramos}
+  path="/como-valoramos"
+>
+  <div class="container pagina-contenido">
+    <h1>Cómo valoramos tu empresa</h1>
+    <p>
+      Sin humo: aquí te explicamos exactamente cómo calcula esta web el valor de tu
+      empresa. Es la misma metodología que usan los asesores en operaciones reales de
+      compraventa, simplificada para que puedas usarla tú mismo en 30 segundos.
+    </p>
+
+    <h2>Método 1: múltiplos EV/EBITDA (niveles Rápido y Medio)</h2>
+    <p>
+      Cuando alguien compra una empresa, en el fondo está comprando sus beneficios
+      futuros. La forma más común de ponerle precio es aplicar un <strong>múltiplo</strong>
+      sobre el EBITDA (el beneficio antes de intereses, impuestos y amortizaciones).
+    </p>
+    <p>
+      La fórmula es simple: <strong>Valor = EBITDA × múltiplo</strong>. La clave está en
+      qué múltiplo aplicar, y eso depende sobre todo del sector. Un negocio de software
+      con ingresos recurrentes se paga más caro que un restaurante, porque su beneficio
+      es más predecible y escalable.
+    </p>
+    <p>Estos son los rangos de múltiplos que usamos, por sector:</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Sector</th>
+          <th>Múltiplo mínimo</th>
+          <th>Múltiplo máximo</th>
+        </tr>
+      </thead>
+      <tbody>
+        {sectoresData.sectores.map((s) => (
+          <tr>
+            <td>{s.nombre}</td>
+            <td>{s.multiplo_min}x EBITDA</td>
+            <td>{s.multiplo_max}x EBITDA</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+
+    <p>
+      Si no conoces tu EBITDA (nivel Rápido), lo estimamos aplicando el margen típico de
+      tu sector sobre tu facturación. Es menos preciso, pero suficiente para orientarte.
+    </p>
+    <p>
+      La <strong>antigüedad</strong> también cuenta: una empresa con 20 años de historia
+      demuestra que sobrevive a crisis y ciclos, y eso los compradores lo pagan. Por eso,
+      a más años, más nos acercamos a la parte alta del rango.
+    </p>
+
+    <h2>Método 2: descuento de flujos de caja o DCF (nivel Avanzado)</h2>
+    <p>
+      El DCF responde a otra pregunta: ¿cuánto valen hoy los beneficios que tu empresa
+      generará en el futuro? Proyectamos tus flujos de caja a 5 años según el crecimiento
+      que tú estimes, les añadimos un valor terminal (lo que valdrá la empresa a partir
+      del año 5) y lo descontamos todo a valor de hoy.
+    </p>
+    <p>
+      ¿Por qué "descontar"? Porque 100.000 € dentro de 5 años valen menos que 100.000 €
+      hoy. La tasa de descuento que usamos se llama <strong>WACC</strong> y refleja el
+      riesgo de tu empresa: cuanto más pequeña y más volátil el sector, mayor es el
+      riesgo y mayor el descuento.
+    </p>
+    <p>
+      Nuestra calculadora elige el WACC automáticamente combinando dos cosas: el tamaño de
+      tu empresa (una empresa de 500.000 € de ventas es más arriesgada que una de 50
+      millones) y tu sector (la construcción es más cíclica que la sanidad, por ejemplo).
+    </p>
+
+    <h2>¿Por qué te damos un rango y no una cifra exacta?</h2>
+    <p>
+      Porque una cifra exacta sería mentirte. En el mercado real, el precio final de una
+      empresa se mueve dentro de un rango que depende de la negociación, del tipo de
+      comprador y del momento. El límite inferior del rango es lo que pagaría un comprador
+      conservador; el superior, lo que pagaría un comprador estratégico al que tu empresa
+      le encaja especialmente bien.
+    </p>
+
+    <h2>Qué NO captura esta calculadora</h2>
+    <p>Somos transparentes: hay cosas que un algoritmo no puede ver, y que en una valoración profesional sí se analizan:</p>
+    <ul>
+      <li>La calidad y concentración de tu cartera de clientes.</li>
+      <li>Cuánto depende el negocio de ti como propietario.</li>
+      <li>Los contratos en vigor y su duración.</li>
+      <li>La deuda financiera y la caja (aquí calculamos el valor de la empresa, no del capital).</li>
+      <li>El momento del mercado y el apetito comprador en tu sector.</li>
+    </ul>
+    <p>
+      Por eso insistimos: esta valoración es un punto de partida honesto, no una tasación.
+      La cifra fina de verdad llega cuando se invierte en una valoración profesional real.
+    </p>
+
+    <p style="margin-top: 2.5rem;">
+      <a href="/#calculadora" class="btn btn-primary btn-lg">Calcular el valor de mi empresa</a>
+    </p>
+  </div>
+</Base>

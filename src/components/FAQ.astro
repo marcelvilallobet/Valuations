@@ -1,0 +1,23 @@
+﻿---
+/**
+ * Lista de FAQs con accordion nativo (details/summary), sin JS.
+ * Props: limite (opcional) para mostrar solo las N primeras (preview en home).
+ */
+import faqData from "../config/faq.json";
+
+interface Props {
+  limite?: number;
+}
+
+const { limite } = Astro.props;
+const faqs = limite ? faqData.faqs.slice(0, limite) : faqData.faqs;
+---
+
+<div class="faq-lista">
+  {faqs.map((faq) => (
+    <details class="faq-item">
+      <summary>{faq.pregunta}</summary>
+      <div class="faq-respuesta">{faq.respuesta}</div>
+    </details>
+  ))}
+</div>

@@ -1,0 +1,36 @@
+﻿---
+/**
+ * Página FAQ completa con schema FAQPage para SEO.
+ */
+import Base from "../layouts/Base.astro";
+import FAQ from "../components/FAQ.astro";
+import textos from "../config/textos.json";
+import faqData from "../config/faq.json";
+
+const schemaFAQ = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqData.faqs.map((f) => ({
+    "@type": "Question",
+    name: f.pregunta,
+    acceptedAnswer: { "@type": "Answer", text: f.respuesta },
+  })),
+};
+---
+
+<Base title={textos.seo.titulo_faq} description={textos.seo.description_faq} path="/faq">
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(schemaFAQ)} />
+
+  <div class="container pagina-contenido">
+    <h1>Preguntas frecuentes</h1>
+    <p>
+      Respondemos con honestidad: qué puede decirte esta calculadora, qué no,
+      y qué pasa con tus datos.
+    </p>
+    <FAQ />
+    <p style="margin-top: 2.5rem;">
+      ¿Tienes otra duda? Escríbenos a
+      <a href={`mailto:${textos.marca.email_contacto}`}>{textos.marca.email_contacto}</a>.
+    </p>
+  </div>
+</Base>

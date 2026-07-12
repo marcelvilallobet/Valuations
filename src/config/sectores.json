@@ -1,0 +1,13 @@
+﻿{
+  "sectores": [
+    { "id": "tecnologia",   "nombre": "Tecnología / SaaS",        "multiplo_min": 8, "multiplo_max": 14, "margen_ebitda_default": 0.20 },
+    { "id": "industria",    "nombre": "Industria / Manufactura",   "multiplo_min": 4, "multiplo_max": 7,  "margen_ebitda_default": 0.12 },
+    { "id": "retail",       "nombre": "Retail / Comercio",         "multiplo_min": 3, "multiplo_max": 6,  "margen_ebitda_default": 0.08 },
+    { "id": "servicios",    "nombre": "Servicios profesionales",   "multiplo_min": 4, "multiplo_max": 8,  "margen_ebitda_default": 0.18 },
+    { "id": "hosteleria",   "nombre": "Hostelería / Restauración", "multiplo_min": 3, "multiplo_max": 5,  "margen_ebitda_default": 0.10 },
+    { "id": "salud",        "nombre": "Salud / Clínicas",          "multiplo_min": 6, "multiplo_max": 10, "margen_ebitda_default": 0.15 },
+    { "id": "construccion", "nombre": "Construcción",              "multiplo_min": 3, "multiplo_max": 6,  "margen_ebitda_default": 0.09 },
+    { "id": "logistica",    "nombre": "Logística / Transporte",    "multiplo_min": 4, "multiplo_max": 7,  "margen_ebitda_default": 0.11 },
+    { "id": "otros",        "nombre": "Genérico / Otros",          "multiplo_min": 4, "multiplo_max": 7,  "margen_ebitda_default": 0.12 }
+  ]
+}

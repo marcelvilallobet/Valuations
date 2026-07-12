@@ -1,0 +1,44 @@
+﻿{
+  "marca": {
+    "nombre": "ValoraMiEmpresa",
+    "dominio": "valoramiempresa.es",
+    "email_contacto": "hola@valoramiempresa.es",
+    "tagline": "Sabe cuánto vale tu empresa, ahora mismo y gratis"
+  },
+  "seo": {
+    "titulo_home": "Valoración gratuita de empresas | Cuánto vale tu negocio",
+    "description_home": "Calcula el valor de tu empresa en menos de 30 segundos. Gratis, sin registro, sin dar el teléfono. Metodología por múltiplos y DCF para pymes españolas.",
+    "titulo_como_valoramos": "Cómo valoramos tu empresa | Metodología transparente",
+    "description_como_valoramos": "Explicamos sin tecnicismos cómo calculamos el valor de tu empresa: múltiplos EV/EBITDA y DCF. La metodología usada en operaciones reales de compraventa.",
+    "titulo_faq": "Preguntas frecuentes sobre valoración de empresas",
+    "description_faq": "Resolvemos las dudas más habituales: confidencialidad, fiabilidad del cálculo, deudas, EBITDA, proceso de venta y más.",
+    "titulo_privacidad": "Política de privacidad",
+    "titulo_aviso_legal": "Aviso legal"
+  },
+  "hero": {
+    "titulo": "¿Cuánto vale tu empresa?",
+    "subtitulo": "Obtén una valoración orientativa en menos de 30 segundos. Gratis. Sin dar tu teléfono.",
+    "cta_calcular": "Calcular ahora"
+  },
+  "resultado": {
+    "titulo": "El valor estimado de tu empresa:",
+    "cta_informe": "Quiero el informe detallado en PDF (gratis)",
+    "cta_informe_subtexto": "Recibirás el desglose completo del cálculo. Sin compromiso, sin llamadas."
+  },
+  "disclaimer": "Esta valoración es orientativa y automática. No es una tasación formal ni asesoramiento financiero, fiscal o legal. El valor real de una empresa depende de muchas cosas que una calculadora no puede capturar: la calidad de tu cartera de clientes, cuánto depende el negocio de ti, los contratos, el equipo, las deudas, el momento del mercado y, sobre todo, cómo se negocie la operación. Tómalo como un punto de partida para orientarte, no como una cifra cerrada. Si quieres una valoración ajustada a tu caso real, hablamos.",
+  "autoridad": {
+    "titulo": "Metodología usada en operaciones reales de compraventa",
+    "items": [
+      "Múltiplos EV/EBITDA actualizados por sector",
+      "DCF (Descuento de Flujos de Caja) con WACC ajustado por tamaño y sector",
+      "Resultado como rango — porque así es como funciona el mercado real",
+      "Cero afirmaciones exageradas: te decimos lo que sabemos y lo que no"
+    ]
+  },
+  "informe_pdf": {
+    "titulo": "Informe de Valoración Orientativa",
+    "subtitulo": "Generado automáticamente — no sustituye a una valoración profesional",
+    "seccion_como_defender": "Cómo defender esta valoración ante un comprador",
+    "texto_como_defender": "El valor de tu empresa no es solo un número: es el punto de partida de una negociación.\n\n1. EBITDA recurrente y documentado. Los compradores pagan más por beneficios predecibles. Si tu EBITDA ha sido estable o creciente los últimos 3 años, tienes un argumento sólido.\n\n2. Cartera de clientes diversificada. Cuanto más dependa el negocio de uno o dos clientes, más riesgo ve el comprador. Diversificar antes de vender puede subir el múltiplo.\n\n3. Equipo que no depende del dueño. Si el negocio funciona sin ti, vale más. Si solo funciona contigo, el comprador descontará riesgo.\n\n4. Contratos en vigor. Los contratos de larga duración justifican múltiplos más altos.\n\n5. Documentación financiera limpia. Cuentas auditadas o bien ordenadas eliminan incertidumbre y refuerzan tu posición negociadora."
+  }
+}

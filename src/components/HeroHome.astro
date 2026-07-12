@@ -1,0 +1,19 @@
+---
+import textos from "../config/textos.json";
+const hero = textos.hero;
+---
+
+<section class="hero">
+  <div class="container">
+    <h1>{hero.titulo}</h1>
+    <p class="hero-sub">{hero.subtitulo}</p>
+    <a href="#calculadora" class="btn btn-primary btn-lg">{hero.cta_calcular}</a>
+
+    <!-- Franja de diferenciación: ataca la fricción de la competencia sin nombrarla -->
+    <ul class="hero-diferencia" aria-label="Por qué somos distintos">
+      <li>El resultado, en pantalla al momento</li>
+      <li>100&nbsp;% gratis</li>
+      <li>Sin registro ni teléfono</li>
+    </ul>
+  </div>
+</section>

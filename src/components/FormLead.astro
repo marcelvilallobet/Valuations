@@ -1,0 +1,102 @@
+﻿---
+/**
+ * Formulario de captura de lead (email + perfil oculto + RGPD).
+ * - Incluye una copia estática oculta para que Netlify detecte el form en build.
+ * - El envío real se hace por fetch (application/x-www-form-urlencoded).
+ * - Si el perfil es "informe", tras enviar se genera y descarga el PDF.
+ */
+---
+
+<!-- Form estático SOLO para detección de Netlify en build. No visible. -->
+<form name="leads" data-netlify="true" netlify-honeypot="bot-field" hidden aria-hidden="true">
+  <input type="email" name="email" />
+  <input type="text" name="perfil" />
+  <input type="text" name="resultado_valoracion" />
+  <input type="text" name="mensaje" />
+  <input type="text" name="telefono" />
+  <input type="checkbox" name="rgpd" />
+  <input type="text" name="bot-field" />
+</form>
+
+<!-- Formulario funcional (envía por JS) -->
+<div class="oferta-informe" id="oferta-informe" hidden>
+  <h3 id="form-lead-titulo">Recibe el informe detallado en PDF</h3>
+  <p id="form-lead-subtexto">Con el desglose completo del cálculo y cómo defender tu valoración.</p>
+
+  <form class="form-lead" id="form-lead" novalidate>
+    <input type="hidden" name="perfil" id="lead-perfil" value="informe" />
+    <input type="hidden" name="resultado_valoracion" id="lead-resultado" value="" />
+    <p class="hidden" aria-hidden="true">
+      <label>No rellenes esto: <input name="bot-field" tabindex="-1" autocomplete="off" /></label>
+    </p>
+
+    <input
+      type="email"
+      name="email"
+      id="lead-email"
+      placeholder="Tu email"
+      required
+      autocomplete="email"
+      aria-label="Tu dirección de email"
+    />
+
+    <!-- Campo libre solo para el perfil "tramite" -->
+    <textarea
+      name="mensaje"
+      id="lead-mensaje"
+      rows="3"
+      placeholder="Cuéntanos brevemente tu caso"
+      class="hidden"
+    ></textarea>
+
+    <label class="rgpd">
+      <input type="checkbox" name="rgpd" id="lead-rgpd" required />
+      <span>
+        He leído y acepto la <a href="/privacidad" target="_blank">política de privacidad</a>.
+        Usaremos tu email únicamente para enviarte lo solicitado.
+      </span>
+    </label>
+
+    <button type="submit" class="btn btn-primary" id="lead-submit">Enviar</button>
+    <p class="form-msg" id="lead-msg" role="status"></p>
+  </form>
+
+  <!--
+    Cierre suave post-envío: sesión con un analista, teléfono 100 % opcional.
+    Buenas prácticas aplicadas: se vende el beneficio (no se pide el dato),
+    salida sin fricción ("Ahora no"), y cero mensajes de error en algo opcional.
+  -->
+  <div class="cierre-suave" id="cierre-suave" hidden>
+    <div class="cierre-suave-icono" aria-hidden="true">📞</div>
+    <h3>¿Le echamos un vistazo juntos?</h3>
+    <p class="cierre-suave-texto">
+      Un analista te llama, repasa contigo tu valoración y responde a tus dudas.
+      <strong>15 minutos, gratis y sin ningún compromiso.</strong>
+    </p>
+    <ul class="cierre-suave-bullets">
+      <li>Te explicamos qué significa tu rango y de qué depende</li>
+      <li>Sin argumentario comercial: solo te llamamos una vez</li>
+    </ul>
+
+    <form class="form-lead form-telefono" id="form-telefono" novalidate>
+      <input type="hidden" name="perfil" value="telefono-opcional" />
+      <input type="hidden" name="email" id="tel-email-copia" value="" />
+      <div class="tel-fila">
+        <input
+          type="tel"
+          name="telefono"
+          id="lead-telefono"
+          placeholder="612 345 678"
+          autocomplete="tel"
+          inputmode="tel"
+          aria-label="Tu teléfono"
+        />
+        <button type="submit" class="btn btn-primary" id="tel-submit" disabled>
+          Sí, que me llamen
+        </button>
+      </div>
+      <button type="button" class="btn-link" id="tel-no-gracias">Ahora no, gracias</button>
+      <p class="form-msg" id="tel-msg" role="status"></p>
+    </form>
+  </div>
+</div>

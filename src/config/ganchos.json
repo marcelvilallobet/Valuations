@@ -1,0 +1,34 @@
+﻿{
+  "ganchos": [
+    {
+      "id": "vender",
+      "titulo": "¿Estás pensando en vender?",
+      "descripcion": "Te enviamos una guía clara sobre cómo es el proceso de venta de una empresa: qué esperar, cuánto dura y cómo prepararte para obtener el mejor precio.",
+      "cta": "Quiero la guía del proceso de venta"
+    },
+    {
+      "id": "crecer",
+      "titulo": "¿Quieres que valga más?",
+      "descripcion": "Usa el modo proyecciones (Nivel 3) para ver cuánto subiría tu valoración si creces un X% anual. O cuéntanos tu caso y te orientamos.",
+      "cta": "Ver cómo subir mi valoración"
+    },
+    {
+      "id": "socios",
+      "titulo": "¿Necesitas valorar la participación de un socio?",
+      "descripcion": "Una compraventa entre socios o una salida del accionariado requiere una base objetiva. Te explicamos cómo aplicar esta valoración a tu caso.",
+      "cta": "Explícame cómo valorar la participación"
+    },
+    {
+      "id": "tramite",
+      "titulo": "¿Es para un trámite formal?",
+      "descripcion": "Si necesitas la valoración para una herencia, un banco o un inversor, cuéntanos tu caso. Te orientamos sobre qué tipo de informe necesitas.",
+      "cta": "Tengo un trámite concreto"
+    },
+    {
+      "id": "newsletter",
+      "titulo": "¿Solo quieres estar al tanto?",
+      "descripcion": "Te avisamos cuando publiquemos análisis de múltiplos por sector o cambios relevantes en el mercado de compraventa de empresas.",
+      "cta": "Avísame de novedades en mi sector"
+    }
+  ]
+}

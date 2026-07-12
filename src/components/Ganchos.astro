@@ -1,0 +1,25 @@
+﻿---
+/**
+ * Tarjetas de CTA por perfil. Cada botón abre el formulario de lead
+ * con el campo oculto "perfil" ya rellenado (data-perfil).
+ * El gancho "crecer" además enlaza directamente al Nivel 3.
+ */
+import ganchosData from "../config/ganchos.json";
+const ganchos = ganchosData.ganchos;
+---
+
+<div class="ganchos" id="ganchos">
+  {ganchos.map((g) => (
+    <div class="gancho-card">
+      <h3>{g.titulo}</h3>
+      <p>{g.descripcion}</p>
+      <button
+        type="button"
+        class="btn btn-secondary btn-gancho"
+        data-perfil={g.id}
+      >
+        {g.cta}
+      </button>
+    </div>
+  ))}
+</div>

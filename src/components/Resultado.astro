@@ -1,0 +1,35 @@
+﻿---
+/**
+ * Bloque de resultado: oculto hasta que el usuario calcula.
+ * El número se muestra ENORME, gratis y sin pedir nada (innegociable).
+ * Debajo: disclaimer, oferta de informe PDF y ganchos por perfil.
+ */
+import textos from "../config/textos.json";
+import Disclaimer from "./Disclaimer.astro";
+import Ganchos from "./Ganchos.astro";
+import FormLead from "./FormLead.astro";
+---
+
+<section class="resultado" id="resultado" hidden aria-live="polite">
+  <p class="resultado-titulo">{textos.resultado.titulo}</p>
+  <p class="resultado-rango" id="resultado-rango">—</p>
+  <p class="resultado-central">
+    Estimación central: <strong id="resultado-central">—</strong>
+  </p>
+  <p class="resultado-metodo" id="resultado-metodo"></p>
+
+  <Disclaimer />
+
+  <button type="button" class="btn btn-primary btn-lg" id="btn-pedir-informe">
+    {textos.resultado.cta_informe}
+  </button>
+  <p style="font-size: 0.85rem; color: var(--color-gray-500); margin-top: 0.5rem;">
+    {textos.resultado.cta_informe_subtexto}
+  </p>
+
+  <FormLead />
+
+  <h2 style="margin-top: 3rem;">¿Y ahora qué?</h2>
+  <p style="color: var(--color-gray-500);">Dinos qué te ronda la cabeza y te ayudamos con el siguiente paso.</p>
+  <Ganchos />
+</section>

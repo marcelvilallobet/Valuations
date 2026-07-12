@@ -1,0 +1,102 @@
+﻿---
+/**
+ * Layout base: SEO completo (meta, OG, Twitter, JSON-LD), header y footer.
+ * Todas las páginas lo usan pasando title y description.
+ */
+import textos from "../config/textos.json";
+import "../styles/global.css";
+
+interface Props {
+  title: string;
+  description: string;
+  /** Ruta canónica relativa, p.ej. "/faq". Por defecto la actual. */
+  path?: string;
+}
+
+const { title, description, path = Astro.url.pathname } = Astro.props;
+const site = Astro.site ?? new URL("https://tudominio.es");
+const canonical = new URL(path, site).href;
+const marca = textos.marca;
+
+// JSON-LD: Organization + WebSite (en todas las páginas)
+const schemaOrg = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": `${site.href}#organization`,
+      name: marca.nombre,
+      url: site.href,
+      email: marca.email_contacto,
+    },
+    {
+      "@type": "WebSite",
+      "@id": `${site.href}#website`,
+      name: marca.nombre,
+      url: site.href,
+      publisher: { "@id": `${site.href}#organization` },
+      inLanguage: "es-ES",
+    },
+  ],
+};
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={new URL("/og-image.png", site).href} />
+    <meta property="og:locale" content="es_ES" />
+    <meta property="og:site_name" content={marca.nombre} />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={new URL("/og-image.png", site).href} />
+
+    <!-- JSON-LD -->
+    <script type="application/ld+json" set:html={JSON.stringify(schemaOrg)} />
+
+    <slot name="head" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container">
+        <a href="/" class="site-logo">{marca.nombre}</a>
+        <nav class="site-nav" aria-label="Navegación principal">
+          <a href="/">Calculadora</a>
+          <a href="/como-valoramos">Cómo valoramos</a>
+          <a href="/faq">FAQ</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <slot />
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <div class="footer-links">
+          <a href="/privacidad">Política de privacidad</a>
+          <a href="/aviso-legal">Aviso legal</a>
+          <a href={`mailto:${marca.email_contacto}`}>{marca.email_contacto}</a>
+        </div>
+        <p>© {new Date().getFullYear()} {marca.nombre}. La valoración ofrecida es orientativa y no constituye asesoramiento financiero.</p>
+      </div>
+    </footer>
+  </body>
+</html>
