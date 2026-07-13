@@ -37,6 +37,15 @@
 - **Calculadoras de asesorías/brokers** (múltiples): suelen pedir contacto antes del resultado o dar una cifra única sin metodología. Poca transparencia.
 - **Herramientas internacionales** (BizBuySell, etc.): no localizadas para España, en inglés, múltiplos americanos.
 
+### Qué hace bien la competencia y vamos a copiar MEJOR
+- **Informe como enlace único compartible** (tipo `/report/22xse`): algunos competidores
+  entregan el resultado como página online con URL propia en vez de (o además de) un
+  PDF. Es más compartible (WhatsApp al socio, al asesor, al banco) y permite medir
+  aperturas. **Nuestra versión mejorada**: enlace compartible SIN guardar los datos en
+  ningún servidor (datos codificados en la propia URL) → mantenemos la promesa de
+  privacidad que ellos no pueden cumplir, porque ellos capturan tus datos primero.
+  Fase 2: ID corto con almacenamiento si vemos que se comparte. Detalle en TODOS.md.
+
 ### Nuestro posicionamiento (el hueco)
 > **"El número primero."** Somos la única herramienta que da el rango en pantalla,
 > al instante, gratis y sin pedir NADA. La confianza es el producto.

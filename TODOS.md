@@ -46,6 +46,22 @@ validar nuestros números, para A/B testing y para tener "segundas opiniones" in
 Nota técnica: con la arquitectura actual es barato — cada "modo" es solo otro juego
 de JSON (sectores/wacc/antiguedad alternativos). No hace falta tocar código.
 
+## Informe como enlace compartible (copiado de la competencia, mejorado)
+
+Visto en competidores: el informe como página online con URL única (`/report/22xse`).
+Lo copiamos mejor (ver docs/analisis-marketing.md, sección competencia):
+
+- [ ] **Fase 1 — sin backend**: página `/informe` que lee los datos codificados de la
+      propia URL (`/informe#s=salud&e=300000...`) y pinta el informe online.
+      Compartible por WhatsApp, cero servidores, coherente con nuestra privacidad.
+      El PDF se mantiene como descarga complementaria.
+- [ ] **Fase 2 — solo si la gente comparte**: ID corto de verdad (`/report/22xse`) con
+      Netlify Functions + Netlify Blobs (o Supabase). Permite medir aperturas.
+      ⚠ Implica guardar datos financieros en servidor: revisar el texto de la promesa
+      de privacidad antes de activarlo.
+- [ ] Botón "Compartir informe" junto al de descargar PDF (Web Share API en móvil,
+      copiar enlace en desktop).
+
 ## Otras mejoras técnicas pendientes
 
 - [x] Páginas por sector en `/sectores/` (programmatic SEO). **HECHO** (9 páginas + hub).
