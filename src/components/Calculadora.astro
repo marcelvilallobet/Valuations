@@ -276,6 +276,83 @@
     const resultadoEl = $("#resultado");
     resultadoEl.hidden = false;
     resultadoEl.scrollIntoView({ behavior: "smooth", block: "start" });
+
+    // Dashboard interactivo: solo para el DCF del nivel Avanzado
+    if (r.metodologia === "dcf-nivel3") {
+      montarDashboard(r);
+    } else {
+      $("#dashboard-dcf").classList.add("hidden");
+    }
+  }
+
+  // ── Dashboard interactivo del Nivel 3 ────────────────────────────────────
+  // El usuario mueve el crecimiento y todo se recalcula en vivo.
+  // El WACC se muestra pero NO es editable (lo fija sector + tamaño).
+  const fmtCorto = (n) =>
+    n >= 950000
+      ? (n / 1e6).toLocaleString("es-ES", { maximumFractionDigits: 1 }) + " M€"
+      : Math.round(n / 1000).toLocaleString("es-ES") + " k€";
+
+  const fmtPct = (n) => n.toLocaleString("es-ES", { maximumFractionDigits: 1 }) + " %";
+
+  function montarDashboard(r) {
+    const dashEl = $("#dashboard-dcf");
+    dashEl.classList.remove("hidden");
+    $("#dash-wacc").textContent = `🔒 WACC ${fmtPct(r.waccUsado * 100)}`;
+
+    const cont = $("#dash-sliders");
+    cont.innerHTML = "";
+    r.tasasCrecimiento.forEach((tasa, i) => {
+      const fila = document.createElement("div");
+      fila.className = "dash-slider-fila";
+      fila.innerHTML = `
+        <label for="dash-g${i + 1}">Año ${i + 1}</label>
+        <input type="range" id="dash-g${i + 1}" min="-20" max="50" step="0.5" value="${tasa * 100}" />
+        <span class="dash-slider-valor">${fmtPct(tasa * 100)}</span>`;
+      fila.querySelector("input").addEventListener("input", recalcularDesdeDashboard);
+      cont.appendChild(fila);
+    });
+
+    pintarBarras(r.flujos);
+  }
+
+  function recalcularDesdeDashboard() {
+    const tasas = [...document.querySelectorAll("#dash-sliders input")].map(
+      (inp) => (parseFloat(inp.value) || 0) / 100
+    );
+    // Refleja el % junto a cada slider y sincroniza los campos del formulario
+    document.querySelectorAll(".dash-slider-valor").forEach((span, i) => {
+      span.textContent = fmtPct(tasas[i] * 100);
+      $(`#in-g${i + 1}`).value = tasas[i] * 100;
+    });
+
+    const { ventas, ebitda, sectorId } = ultimosInputs;
+    const r = calcularDCF(ventas, ebitda, sectorId, tasas, waccConfig, sectoresConfig);
+    ultimoResultado = r;
+    ultimosInputs = { ...ultimosInputs, tasas };
+
+    $("#resultado-rango").textContent = `${fmtEUR(r.valorMin)} — ${fmtEUR(r.valorMax)}`;
+    $("#resultado-central").textContent = fmtEUR(r.valorCentral);
+    $("#lead-resultado").value = `${r.valorMin} - ${r.valorMax} EUR (${r.metodologia})`;
+    pintarBarras(r.flujos);
+  }
+
+  function pintarBarras(flujos) {
+    const grafico = $("#dash-grafico");
+    const maximo = Math.max(...flujos);
+    grafico.innerHTML = "";
+    flujos.forEach((f, i) => {
+      const col = document.createElement("div");
+      col.className = "dash-col";
+      col.title = `Año ${i + 1}: ${fmtEUR(f)}`;
+      col.innerHTML = `
+        <div class="dash-col-plot">
+          <span class="dash-valor">${fmtCorto(f)}</span>
+          <div class="dash-bar" style="height: ${Math.max(4, Math.round((f / maximo) * 100))}%"></div>
+        </div>
+        <span class="dash-anio">Año ${i + 1}</span>`;
+      grafico.appendChild(col);
+    });
   }
 
   // ── Envío silencioso del cálculo (solo el primero por sesión) ─────────────

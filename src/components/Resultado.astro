@@ -18,6 +18,36 @@ import FormLead from "./FormLead.astro";
   </p>
   <p class="resultado-metodo" id="resultado-metodo"></p>
 
+  <!-- Dashboard interactivo del Nivel 3 (visto en valuations.com, adaptado):
+       el crecimiento se puede tocar y la valoración se recalcula en vivo;
+       el WACC se muestra pero queda bloqueado (lo fijamos por sector y tamaño). -->
+  <div class="dashboard-dcf hidden" id="dashboard-dcf">
+    <div class="dashboard-cabecera">
+      <h3>Juega con tu crecimiento</h3>
+      <span
+        class="wacc-chip"
+        id="dash-wacc"
+        title="La tasa de descuento (WACC) la fijamos nosotros según tu sector y tamaño. No es editable: así el resultado no se puede maquillar."
+        >🔒 WACC —</span
+      >
+    </div>
+    <p class="dashboard-ayuda">
+      Mueve el crecimiento de cada año y mira cómo cambia tu valoración al instante.
+      La tasa de descuento queda fijada por tu sector y tamaño.
+    </p>
+    <div class="dash-sliders" id="dash-sliders"></div>
+    <div class="dash-grafico-wrap">
+      <p class="dash-grafico-titulo">Flujos de caja proyectados a 5 años</p>
+      <div
+        class="dash-grafico"
+        id="dash-grafico"
+        role="img"
+        aria-label="Gráfico de barras con los flujos de caja proyectados de los próximos 5 años"
+      >
+      </div>
+    </div>
+  </div>
+
   <Disclaimer />
 
   <button type="button" class="btn btn-primary btn-lg" id="btn-pedir-informe">
