@@ -517,6 +517,53 @@ a:hover { color: var(--color-blue-light); }
   align-self: flex-start;
 }
 
+/* ── Los 3 factores que mueven el valor ──────────────── */
+.factores-grid {
+  display: grid;
+  gap: 1rem;
+  margin-top: 2.5rem;
+}
+
+@media (min-width: 700px) {
+  .factores-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+.factor-card {
+  background: var(--color-white);
+  border: 1px solid var(--color-gray-200);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+}
+
+.factor-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  background: var(--color-blue);
+  color: var(--color-white);
+  font-weight: 700;
+  margin-bottom: 0.8rem;
+}
+
+.factor-card h3 { font-size: 1.1rem; margin-bottom: 0.4rem; }
+.factor-card p { font-size: 0.92rem; color: var(--color-gray-500); flex-grow: 1; }
+
+.factor-enlace {
+  margin-top: 0.8rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--color-blue);
+  text-decoration: none;
+}
+
+.factor-enlace:hover { text-decoration: underline; }
+
 /* ── FAQ (accordion con details/summary) ─────────────── */
 .faq-item {
   border-bottom: 1px solid var(--color-gray-200);

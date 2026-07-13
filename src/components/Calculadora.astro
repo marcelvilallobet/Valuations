@@ -187,6 +187,14 @@
     });
   });
 
+  // Enlaces de otras secciones que abren directamente un nivel (p.ej. "3 factores")
+  document.querySelectorAll("[data-abrir-nivel]").forEach((el) => {
+    el.addEventListener("click", () => {
+      const tab = document.getElementById(`tab-${el.dataset.abrirNivel}`);
+      if (tab) tab.click();
+    });
+  });
+
   // ── Cálculo ───────────────────────────────────────────────────────────────
   $("#form-calculadora").addEventListener("submit", (e) => {
     e.preventDefault();

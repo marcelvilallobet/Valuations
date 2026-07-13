@@ -36,6 +36,47 @@ const schemaService = {
     <Resultado />
   </div>
 
+  <!-- Los 3 factores que mueven el valor (educativo; visto en valuations.com, adaptado a España) -->
+  <section class="section">
+    <div class="container">
+      <h2 class="text-center">Los 3 datos que deciden cuánto vale tu empresa</h2>
+      <p class="text-center" style="color: var(--color-gray-500); max-width: 620px; margin-inline: auto;">
+        No hace falta un máster en finanzas: casi todo el valor de una pyme se explica con tres cosas.
+      </p>
+      <div class="factores-grid">
+        <div class="factor-card">
+          <span class="factor-num">1</span>
+          <h3>Facturación</h3>
+          <p>
+            Es el punto de partida de cualquier valoración: cuánto dinero entra cada año.
+            Un comprador paga por un negocio que ya vende, no por una promesa.
+          </p>
+        </div>
+        <div class="factor-card">
+          <span class="factor-num">2</span>
+          <h3>Crecimiento</h3>
+          <p>
+            Dos empresas que facturan lo mismo no valen lo mismo: la que crece un 10 % al año
+            vale bastante más que la que está plana. Pruébalo tú mismo en el nivel
+            <strong>Avanzado</strong> de la calculadora: cambia las hipótesis de crecimiento
+            y mira cómo se mueve el valor.
+          </p>
+          <a href="#calculadora" class="factor-enlace" data-abrir-nivel="3">Simular mi crecimiento →</a>
+        </div>
+        <div class="factor-card">
+          <span class="factor-num">3</span>
+          <h3>Sector</h3>
+          <p>
+            Cada sector tiene su propio múltiplo: por el mismo EBITDA, un comprador paga más
+            en tecnología que en hostelería. Usamos rangos localizados para España, no
+            múltiplos americanos.
+          </p>
+          <a href="/sectores" class="factor-enlace">Ver el múltiplo de mi sector →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <Autoridad />
 
   <!-- Enlazado interno a las guías por sector (usuarios + SEO) -->

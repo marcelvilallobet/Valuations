@@ -1,5 +1,19 @@
 ﻿# Mejoras futuras y roadmap técnico
 
+## Marketing / captación (apuntado 14-jul-2026, pedido por Marcel)
+
+- [ ] **Ideas de vídeo TikTok para traer tráfico**: buscar formatos que funcionen en el
+      nicho (p.ej. "¿cuánto vale un bar que factura 300k?", reacción a valoraciones,
+      "3 errores al vender tu empresa"). El gancho natural es decir una cifra en voz alta.
+- [ ] **Definir quién es el cliente**: ¿el empresario que vende (jubilación, cansancio)?
+      ¿el que compra? ¿asesores/gestorías que revenden el servicio? Decidirlo condiciona
+      el contenido y el cierre. Pista: los perfiles de los ganchos ya nos dan la señal.
+- [ ] **Cómo cerrar al cliente**: definir el paso posterior al lead (llamada del analista
+      ya existe como cierre suave) → guion de llamada, oferta concreta y precio.
+- [x] **Aviso por email cuando alguien entra o calcula**: hecho vía Netlify Forms
+      (forms "visitas" y "calculos"). Falta activar las notificaciones en el panel de
+      Netlify → Forms → Form notifications (ver instrucciones en README/commit).
+
 ## Fuentes de datos externas (PRIORIDAD ALTA)
 
 ### Conexión con datos de Damodaran

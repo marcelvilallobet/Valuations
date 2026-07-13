@@ -37,6 +37,22 @@
 - **Calculadoras de asesorías/brokers** (múltiples): suelen pedir contacto antes del resultado o dar una cifra única sin metodología. Poca transparencia.
 - **Herramientas internacionales** (BizBuySell, etc.): no localizadas para España, en inglés, múltiplos americanos.
 
+### Valuations.com — la validación de nuestro modelo (mercado USA)
+- Hace EXACTAMENTE nuestra jugada: "Free business valuation report. Fast & Easy",
+  3 datos (ingresos 12 meses, crecimiento y sector), ~30 segundos, resultado en
+  pantalla, gratis y sin registro obligatorio.
+- Lectura estratégica: **el modelo "número primero" ya funciona en el mercado más
+  competitivo del mundo**. No estamos inventando; estamos localizando un modelo
+  probado a un mercado (España) donde nadie lo hace aún — Deale sigue pidiendo
+  NIF y teléfono antes de dar nada.
+- Qué copiar de ellos: la simplicidad extrema (3 campos), el tono educativo
+  (explican por qué importa cada métrica) y el foco por vertical (tienen segmento
+  específico de restaurantes → refuerza nuestra apuesta de páginas por sector).
+- Qué hacemos mejor: rango en vez de cifra única, metodología a la vista (DCF
+  incluido), múltiplos localizados para España, RGPD y privacidad como bandera.
+- Riesgo a vigilar: si algún día se localizan al español, tendrían dominio y marca
+  potentes. Otra razón para correr con el SEO en español.
+
 ### Qué hace bien la competencia y vamos a copiar MEJOR
 - **Informe como enlace único compartible** (tipo `/report/22xse`): algunos competidores
   entregan el resultado como página online con URL propia en vez de (o además de) un

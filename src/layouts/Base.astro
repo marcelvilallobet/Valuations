@@ -71,6 +71,8 @@ const schemaOrg = {
     <!-- JSON-LD -->
     <script type="application/ld+json" set:html={JSON.stringify(schemaOrg)} />
 
+    <Analitica />
+
     <slot name="head" />
   </head>
   <body>
@@ -100,5 +102,34 @@ const schemaOrg = {
         <p>© {new Date().getFullYear()} {marca.nombre}. La valoración ofrecida es orientativa y no constituye asesoramiento financiero.</p>
       </div>
     </footer>
+
+    <!-- Form estático oculto para que Netlify detecte "visitas" en build -->
+    <form name="visitas" data-netlify="true" hidden aria-hidden="true">
+      <input type="text" name="pagina" />
+      <input type="text" name="procedencia" />
+      <input type="text" name="dispositivo" />
+    </form>
+
+    <script is:inline>
+      // Aviso de visita por email: un envío por sesión al form "visitas" de
+      // Netlify. El email destino se configura en Netlify → Forms → Notifications.
+      (function () {
+        try {
+          if (sessionStorage.getItem("visita_enviada")) return;
+          sessionStorage.setItem("visita_enviada", "1");
+          var datos = new URLSearchParams({
+            "form-name": "visitas",
+            pagina: location.pathname,
+            procedencia: document.referrer || "directa",
+            dispositivo: /Mobi|Android/i.test(navigator.userAgent) ? "móvil" : "ordenador",
+          });
+          fetch("/", {
+            method: "POST",
+            headers: { "Content-Type": "application/x-www-form-urlencoded" },
+            body: datos.toString(),
+          }).catch(function () {});
+        } catch (e) {}
+      })();
+    </script>
   </body>
 </html>
