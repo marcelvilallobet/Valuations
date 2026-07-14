@@ -1,0 +1,27 @@
+{
+  "titulo": "Antes de vender, lee esto",
+  "subtitulo": "Tres lecturas que evitan los errores más caros al vender una pyme. Los enlaces te llevan a Amazon; nosotros no vendemos los libros.",
+  "libros": [
+    {
+      "emoji": "📘",
+      "titulo": "Todo lo que debes saber antes de empezar el proceso de venta",
+      "gancho": "Cómo preparar tu empresa para que valga más el día que la pongas a la venta.",
+      "cta": "Ver el libro",
+      "url": "https://www.amazon.es/s?k=c%C3%B3mo+vender+tu+empresa"
+    },
+    {
+      "emoji": "📕",
+      "titulo": "No vendas tu empresa antes de saber esto",
+      "gancho": "Los errores de negociación que le cuestan a un dueño decenas de miles de euros.",
+      "cta": "Ver el libro",
+      "url": "https://www.amazon.es/s?k=vender+empresa+negociaci%C3%B3n"
+    },
+    {
+      "emoji": "📗",
+      "titulo": "Cómo se valora de verdad una empresa",
+      "gancho": "La lógica de múltiplos y flujos de caja explicada sin necesidad de un máster.",
+      "cta": "Ver el libro",
+      "url": "https://www.amazon.es/s?k=valoraci%C3%B3n+de+empresas"
+    }
+  ]
+}

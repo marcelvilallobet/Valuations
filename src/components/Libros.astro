@@ -1,0 +1,74 @@
+---
+/**
+ * Libros recomendados (enlaces de afiliado + registro de clic).
+ *
+ * - Los datos salen de src/config/libros.json (edita ahí títulos y URLs).
+ * - Cada clic se registra en Netlify Forms (form "libros") por fetch, igual que
+ *   "visitas" y "leads". Así ves en Netlify → Forms qué libro interesa más,
+ *   sin backend. También manda un evento a Plausible si está cargado.
+ * - Para monetizar: sustituye la "url" de cada libro en libros.json por tu
+ *   enlace de afiliado de Amazon (tu tag ?tag=xxxx-21). El resto ya funciona.
+ */
+import libros from "../config/libros.json";
+---
+
+<!-- Form estático oculto SOLO para que Netlify detecte "libros" en build. -->
+<form name="libros" data-netlify="true" netlify-honeypot="bot-field" hidden aria-hidden="true">
+  <input type="text" name="titulo" />
+  <input type="text" name="pagina" />
+  <input type="text" name="bot-field" />
+</form>
+
+<section class="section">
+  <div class="container">
+    <h2 class="text-center">{libros.titulo}</h2>
+    <p class="text-center" style="color: var(--color-gray-500); max-width: 620px; margin-inline: auto;">
+      {libros.subtitulo}
+    </p>
+
+    <div class="libros-grid">
+      {libros.libros.map((libro) => (
+        <a
+          href={libro.url}
+          class="libro-card"
+          target="_blank"
+          rel="noopener sponsored"
+          data-libro={libro.titulo}
+        >
+          <span class="libro-emoji" aria-hidden="true">{libro.emoji}</span>
+          <h3>{libro.titulo}</h3>
+          <p>{libro.gancho}</p>
+          <span class="libro-cta">{libro.cta} →</span>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
+
+<script is:inline>
+  // Registra el clic en un libro (Netlify Forms "libros" + Plausible) y luego
+  // deja que el enlace abra Amazon con normalidad. Sin bloquear la navegación.
+  (function () {
+    document.querySelectorAll(".libro-card").forEach(function (card) {
+      card.addEventListener("click", function () {
+        var titulo = card.getAttribute("data-libro") || "";
+        try {
+          var datos = new URLSearchParams({
+            "form-name": "libros",
+            titulo: titulo,
+            pagina: location.pathname,
+          });
+          fetch("/", {
+            method: "POST",
+            headers: { "Content-Type": "application/x-www-form-urlencoded" },
+            body: datos.toString(),
+            keepalive: true,
+          }).catch(function () {});
+        } catch (e) {}
+        if (typeof window.plausible === "function") {
+          window.plausible("ClicLibro", { props: { titulo: titulo } });
+        }
+      });
+    });
+  })();
+</script>
