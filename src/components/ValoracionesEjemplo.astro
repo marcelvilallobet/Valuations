@@ -1,0 +1,50 @@
+---
+/**
+ * Valoraciones de EJEMPLO (ficticias, claramente etiquetadas).
+ * Sirven para que el visitante se haga una idea del tipo de resultado.
+ * NO son clientes reales: cada tarjeta lo deja claro y hay un aviso arriba.
+ * Se muestra/oculta con el flag features.valoracionesEjemplo (apagado por defecto).
+ */
+const ejemplos = [
+  {
+    sector: "Hostelería",
+    datos: "Facturación 1,5 M€ · sin EBITDA (nivel Rápido)",
+    rango: "450 k€ – 705 k€",
+  },
+  {
+    sector: "Tecnología / software",
+    datos: "Facturación 2 M€ · EBITDA 400 k€ · crecimiento 8 %/año",
+    rango: "1,6 M€ – 2,4 M€",
+  },
+  {
+    sector: "Servicios profesionales",
+    datos: "Facturación 900 k€ · EBITDA 180 k€ · 15 años",
+    rango: "540 k€ – 810 k€",
+  },
+  {
+    sector: "Comercio / retail",
+    datos: "Facturación 3 M€ · EBITDA 300 k€",
+    rango: "600 k€ – 1,1 M€",
+  },
+];
+---
+
+<section class="section">
+  <div class="container">
+    <h2 class="text-center">Valoraciones de ejemplo</h2>
+    <p class="aviso-ejemplos">
+      ⚠️ Casos <strong>ficticios</strong> creados solo para orientar. No son clientes reales ni
+      valoraciones oficiales: tu resultado dependerá de tus datos concretos.
+    </p>
+    <div class="factores-grid">
+      {ejemplos.map((e) => (
+        <div class="factor-card ejemplo-card">
+          <span class="ejemplo-badge">Ejemplo orientativo</span>
+          <h3>{e.sector}</h3>
+          <p>{e.datos}</p>
+          <p class="ejemplo-rango">{e.rango}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

@@ -9,6 +9,7 @@ import Calculadora from "../components/Calculadora.astro";
 import Resultado from "../components/Resultado.astro";
 import Autoridad from "../components/Autoridad.astro";
 import Situaciones from "../components/Situaciones.astro";
+import ValoracionesEjemplo from "../components/ValoracionesEjemplo.astro";
 import Libros from "../components/Libros.astro";
 import FAQ from "../components/FAQ.astro";
 import features from "../config/features.json";
@@ -83,6 +84,8 @@ const schemaService = {
   <Autoridad />
 
   {features.situaciones && <Situaciones />}
+
+  {features.valoracionesEjemplo && <ValoracionesEjemplo />}
 
   <!-- Libros recomendados (afiliación + registro de clic en Netlify Forms) -->
   <Libros />
