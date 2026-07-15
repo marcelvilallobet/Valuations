@@ -564,6 +564,70 @@ a:hover { color: var(--color-blue-light); }
 
 .factor-enlace:hover { text-decoration: underline; }
 
+/* ── Curva de probabilidad de precio (los 3 niveles) ──── */
+.curva {
+  background: var(--color-white);
+  border: 1px solid var(--color-gray-200);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  box-shadow: var(--shadow);
+  margin-top: 2rem;
+  text-align: left;
+}
+
+.curva-cabecera h3 { font-size: 1.1rem; margin: 0 0 0.35rem; }
+
+.curva-hook {
+  font-size: 1rem;
+  color: var(--color-gray-700);
+  margin: 0;
+}
+
+.curva-hook strong { color: var(--color-navy); }
+
+.curva-svg { margin-top: 1rem; }
+.curva-svg svg { display: block; max-width: 100%; height: auto; }
+
+/* Textos dentro del SVG */
+.cx-tick { font-size: 12px; fill: var(--color-gray-500); font-variant-numeric: tabular-nums; }
+.cx-central { font-size: 13px; font-weight: 700; fill: var(--color-navy); font-variant-numeric: tabular-nums; }
+.cx-buyer { font-size: 12.5px; font-weight: 600; fill: var(--color-gray-700); }
+.cx-range { font-size: 12px; fill: var(--color-gray-500); font-variant-numeric: tabular-nums; }
+
+.curva-leyenda {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 0.75rem;
+}
+
+.curva-lg {
+  font-size: 0.8rem;
+  color: var(--color-gray-500);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.curva-lg::before {
+  content: "";
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+  background: currentColor;
+}
+
+.curva-lg-band { color: #93c5fd; }
+.curva-lg-fin { color: var(--color-success); }
+.curva-lg-est { color: var(--color-warning); }
+
+.curva-nota {
+  font-size: 0.82rem;
+  color: var(--color-gray-500);
+  margin-top: 0.75rem;
+  line-height: 1.5;
+}
+
 /* ── Dashboard interactivo del Nivel 3 ───────────────── */
 .dashboard-dcf {
   background: var(--color-white);

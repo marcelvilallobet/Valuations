@@ -1,0 +1,6 @@
+{
+  "_comentario": "Interruptores de secciones. Cambia true/false y haz git push: Netlify redespliega en ~1 min. Sin backend ni contraseña porque solo quien tiene acceso al repo puede tocarlo.",
+  "curvaProbabilidad": true,
+  "situaciones": true,
+  "valoracionesEjemplo": false
+}

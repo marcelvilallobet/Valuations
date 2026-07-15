@@ -8,8 +8,10 @@ import HeroHome from "../components/HeroHome.astro";
 import Calculadora from "../components/Calculadora.astro";
 import Resultado from "../components/Resultado.astro";
 import Autoridad from "../components/Autoridad.astro";
+import Situaciones from "../components/Situaciones.astro";
 import Libros from "../components/Libros.astro";
 import FAQ from "../components/FAQ.astro";
+import features from "../config/features.json";
 import textos from "../config/textos.json";
 import sectoresData from "../config/sectores.json";
 import paginasData from "../config/sectores-paginas.json";
@@ -79,6 +81,8 @@ const schemaService = {
   </section>
 
   <Autoridad />
+
+  {features.situaciones && <Situaciones />}
 
   <!-- Libros recomendados (afiliación + registro de clic en Netlify Forms) -->
   <Libros />

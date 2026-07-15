@@ -121,6 +121,8 @@
   import textosConfig from "../config/textos.json";
   import { calcularNivel1, calcularNivel2 } from "../lib/valoracion.js";
   import { calcularDCF } from "../lib/dcf.js";
+  import { modeloCurva } from "../lib/curva-precio.js";
+  import features from "../config/features.json";
 
   // ── Estado ────────────────────────────────────────────────────────────────
   let nivelActivo = 1;
@@ -273,6 +275,9 @@
     // Guarda el rango en el hidden del form de leads
     $("#lead-resultado").value = `${r.valorMin} - ${r.valorMax} EUR (${r.metodologia})`;
 
+    // Curva de probabilidad de precio: en los 3 niveles (si el flag está activo)
+    if (features.curvaProbabilidad) pintarCurva(r);
+
     const resultadoEl = $("#resultado");
     resultadoEl.hidden = false;
     resultadoEl.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -294,6 +299,87 @@
       : Math.round(n / 1000).toLocaleString("es-ES") + " k€";
 
   const fmtPct = (n) => n.toLocaleString("es-ES", { maximumFractionDigits: 1 }) + " %";
+
+  // ── Curva de probabilidad de precio (los 3 niveles) ──────────────────────
+  // Dibuja una campana sobre el rango [mín, máx] + franjas por tipo de comprador.
+  function pintarCurva(r) {
+    const wrap = $("#curva-precio");
+    const m = modeloCurva(r);
+
+    // Titular tipo "hay un X % de probabilidad de vender por Y o más"
+    $("#curva-hook").innerHTML =
+      `Hay un <strong>${Math.round(m.pFloor * 100)} %</strong> de probabilidad de vender por ` +
+      `<strong>${fmtCorto(m.valorMin)}</strong> o más.`;
+
+    // Lienzo (viewBox responsive; el CSS lo escala al ancho disponible)
+    const W = 820, H = 340;
+    const padL = 20, padR = 20;
+    const top = 44, bottom = 214; // zona de la campana
+    const plotW = W - padL - padR;
+    const x = (v) => padL + ((v - m.xIni) / (m.xFin - m.xIni)) * plotW;
+    const yBell = (yn) => bottom - yn * (bottom - top);
+
+    // Trazado de la campana
+    const p0 = m.puntos[0];
+    const pN = m.puntos[m.puntos.length - 1];
+    const segs = m.puntos.map((p) => `L ${x(p.x).toFixed(1)} ${yBell(p.y).toFixed(1)}`);
+    const linea = `M ${x(p0.x).toFixed(1)} ${yBell(p0.y).toFixed(1)} ${segs.slice(1).join(" ")}`;
+    const area = `M ${x(p0.x).toFixed(1)} ${bottom} ${segs.join(" ")} L ${x(pN.x).toFixed(1)} ${bottom} Z`;
+
+    // Etiquetas del eje X (5 marcas)
+    let ticks = "";
+    for (let i = 0; i <= 4; i++) {
+      const v = m.xIni + ((m.xFin - m.xIni) * i) / 4;
+      const px = x(v);
+      ticks +=
+        `<line x1="${px.toFixed(1)}" y1="${bottom}" x2="${px.toFixed(1)}" y2="${bottom + 5}" stroke="#cbd5e1"/>` +
+        `<text x="${px.toFixed(1)}" y="${bottom + 20}" text-anchor="middle" class="cx-tick">${fmtCorto(v)}</text>`;
+    }
+
+    // Franja del rango probable [mín, máx]
+    const bandX1 = x(m.valorMin), bandX2 = x(m.valorMax);
+    const band = `<rect x="${bandX1.toFixed(1)}" y="${top}" width="${(bandX2 - bandX1).toFixed(1)}" height="${bottom - top}" fill="#dbeafe" opacity="0.55"/>`;
+
+    // Marcador de la estimación central
+    const mx = x(m.valorCentral);
+    const marcador =
+      `<line x1="${mx.toFixed(1)}" y1="${top - 6}" x2="${mx.toFixed(1)}" y2="${bottom}" stroke="#1a2b4a" stroke-width="2" stroke-dasharray="4 4"/>` +
+      `<circle cx="${mx.toFixed(1)}" cy="${top - 6}" r="3.5" fill="#1a2b4a"/>` +
+      `<text x="${mx.toFixed(1)}" y="${top - 14}" text-anchor="middle" class="cx-central">${fmtCorto(m.valorCentral)}</text>`;
+
+    // Barras por tipo de comprador (misma escala X)
+    const filas = [
+      { ...m.compradores[0], color: "#059669", y: 258 },
+      { ...m.compradores[1], color: "#d97706", y: 296 },
+    ];
+    let barras = "";
+    filas.forEach((f) => {
+      const bx = x(f.min), bw = Math.max(2, x(f.max) - x(f.min));
+      barras +=
+        `<text x="${bx.toFixed(1)}" y="${(f.y - 8).toFixed(1)}" class="cx-buyer">${f.etiqueta}</text>` +
+        `<rect x="${bx.toFixed(1)}" y="${f.y}" width="${bw.toFixed(1)}" height="14" rx="7" fill="${f.color}" opacity="0.85"/>` +
+        `<text x="${(x(f.max) + 8).toFixed(1)}" y="${(f.y + 11).toFixed(1)}" class="cx-range">${fmtCorto(f.min)} – ${fmtCorto(f.max)}</text>`;
+    });
+
+    $("#curva-svg").innerHTML = `
+      <svg viewBox="0 0 ${W} ${H}" width="100%" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+        <defs>
+          <linearGradient id="cxFill" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#2563eb" stop-opacity="0.45"/>
+            <stop offset="1" stop-color="#2563eb" stop-opacity="0.02"/>
+          </linearGradient>
+        </defs>
+        ${band}
+        <path d="${area}" fill="url(#cxFill)"/>
+        <path d="${linea}" fill="none" stroke="#2563eb" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+        <line x1="${padL}" y1="${bottom}" x2="${W - padR}" y2="${bottom}" stroke="#cbd5e1"/>
+        ${ticks}
+        ${marcador}
+        ${barras}
+      </svg>`;
+
+    wrap.classList.remove("hidden");
+  }
 
   function montarDashboard(r) {
     const dashEl = $("#dashboard-dcf");
@@ -334,6 +420,7 @@
     $("#resultado-rango").textContent = `${fmtEUR(r.valorMin)} — ${fmtEUR(r.valorMax)}`;
     $("#resultado-central").textContent = fmtEUR(r.valorCentral);
     $("#lead-resultado").value = `${r.valorMin} - ${r.valorMax} EUR (${r.metodologia})`;
+    if (features.curvaProbabilidad) pintarCurva(r);
     pintarBarras(r.flujos);
   }
 

@@ -18,6 +18,33 @@ import FormLead from "./FormLead.astro";
   </p>
   <p class="resultado-metodo" id="resultado-metodo"></p>
 
+  <!-- Curva de probabilidad de precio (visto en valuations.com, rehecho moderno).
+       Se muestra en los 3 niveles: representa el rango [mín, máx] como una campana
+       y reparte ese rango por tipo de comprador (financiero vs estratégico). -->
+  <div class="curva hidden" id="curva-precio">
+    <div class="curva-cabecera">
+      <h3>Tu horquilla de precio de venta</h3>
+      <p class="curva-hook" id="curva-hook"></p>
+    </div>
+    <div
+      class="curva-svg"
+      id="curva-svg"
+      role="img"
+      aria-label="Curva de probabilidad del precio de venta y franjas por tipo de comprador"
+    >
+    </div>
+    <div class="curva-leyenda">
+      <span class="curva-lg curva-lg-band">Rango probable</span>
+      <span class="curva-lg curva-lg-fin">Comprador financiero</span>
+      <span class="curva-lg curva-lg-est">Comprador estratégico</span>
+    </div>
+    <p class="curva-nota">
+      Orientativo. El comprador <strong>financiero</strong> (fondos, inversores) mira rentabilidad y
+      suele pagar en la parte baja-media; el <strong>estratégico</strong> (un competidor o grupo del
+      sector) paga por sinergias y tiende a la parte alta.
+    </p>
+  </div>
+
   <!-- Dashboard interactivo del Nivel 3 (visto en valuations.com, adaptado):
        el crecimiento se puede tocar y la valoración se recalcula en vivo;
        el WACC se muestra pero queda bloqueado (lo fijamos por sector y tamaño). -->

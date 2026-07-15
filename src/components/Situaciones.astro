@@ -1,0 +1,54 @@
+---
+/**
+ * "Situaciones donde te podemos ayudar": motivos frecuentes por los que alguien
+ * necesita una valoración. Educativo + capta intención (herencia, socios, etc.).
+ * Se muestra/oculta con el flag features.situaciones.
+ */
+const situaciones = [
+  {
+    titulo: "Disputas entre socios",
+    texto:
+      "Saber cuánto vale la participación de cada socio para negociar una salida o resolver un conflicto.",
+  },
+  {
+    titulo: "Divorcio con empresa",
+    texto:
+      "Valoración para la liquidación de gananciales, con un informe que puedas presentar ante el juzgado.",
+  },
+  {
+    titulo: "Herencias y sucesiones",
+    texto: "Repartir el patrimonio cuando la empresa es el activo principal de la herencia.",
+  },
+  {
+    titulo: "Compraventa de participaciones",
+    texto: "Un precio de referencia justo como base de negociación para comprar o vender.",
+  },
+  {
+    titulo: "Planificación estratégica",
+    texto:
+      "Saber cuánto vale tu empresa hoy para decidir si crecer, buscar inversión o vender.",
+  },
+  {
+    titulo: "Rondas de inversión",
+    texto:
+      "Una referencia de valoración sólida antes de sentarte a negociar con un inversor.",
+  },
+];
+---
+
+<section class="section">
+  <div class="container">
+    <h2 class="text-center">Situaciones en las que te podemos ayudar</h2>
+    <p class="text-center" style="color: var(--color-gray-500); max-width: 620px; margin-inline: auto;">
+      Cada empresa tiene sus circunstancias. Estos son los motivos más frecuentes.
+    </p>
+    <div class="factores-grid">
+      {situaciones.map((s) => (
+        <div class="factor-card">
+          <h3>{s.titulo}</h3>
+          <p>{s.texto}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
