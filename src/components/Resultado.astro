@@ -76,6 +76,22 @@ import FormLead from "./FormLead.astro";
         </table>
       </div>
     </div>
+
+    <!-- Benchmark: tu margen EBITDA frente al típico de cada sector -->
+    <div class="benchmark" id="benchmark">
+      <h3>Tu margen frente a cada sector</h3>
+      <p class="metodos-ayuda">
+        La línea roja es <strong>tu margen EBITDA</strong>. Las barras, el margen típico de cada
+        sector (el tuyo, resaltado en azul). Un margen alto suele empujar la valoración hacia arriba.
+      </p>
+      <div
+        class="benchmark-svg"
+        id="benchmark-svg"
+        role="img"
+        aria-label="Comparativa de tu margen EBITDA frente al margen típico de cada sector"
+      >
+      </div>
+    </div>
   </div>
 
   <Disclaimer />

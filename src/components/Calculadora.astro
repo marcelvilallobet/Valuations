@@ -276,6 +276,52 @@
     $("#lead-resultado").value = `${r.valorMin} - ${r.valorMax} EUR (informe)`;
     if (features.curvaProbabilidad) pintarCurva(r);
     pintarMetodos(r);
+    pintarBenchmark(r);
+  }
+
+  // Benchmark: margen EBITDA del usuario (línea roja) vs margen típico de cada
+  // sector (barras, la del sector propio resaltada). Se actualiza con el slider.
+  function pintarBenchmark(r) {
+    const W = 840, H = 320, padL = 42, padR = 12, padT = 20, padB = 92;
+    const plotW = W - padL - padR, plotH = H - padT - padB;
+    const bottom = padT + plotH;
+    const sec = sectoresConfig.sectores;
+    const userM = r.margen;
+    const maxVal = Math.max(...sec.map((s) => s.margen_ebitda_default), userM);
+    const yMax = Math.max(0.05, Math.ceil((maxVal * 1.15) / 0.05) * 0.05);
+    const yTo = (v) => bottom - (v / yMax) * plotH;
+    const bandW = plotW / sec.length;
+    const barW = Math.min(48, bandW * 0.6);
+
+    let grid = "";
+    for (let g = 0; g <= yMax + 1e-9; g += 0.05) {
+      const y = yTo(g);
+      grid +=
+        `<line x1="${padL}" y1="${y.toFixed(1)}" x2="${W - padR}" y2="${y.toFixed(1)}" stroke="#e2e8f0"/>` +
+        `<text x="${padL - 6}" y="${(y + 4).toFixed(1)}" text-anchor="end" class="bm-tick">${Math.round(g * 100)}%</text>`;
+    }
+
+    let bars = "";
+    sec.forEach((s, i) => {
+      const cx = padL + bandW * i + bandW / 2;
+      const bx = cx - barW / 2;
+      const by = yTo(s.margen_ebitda_default);
+      const activo = s.id === r.sectorId;
+      const lbl = s.nombre.split(" / ")[0];
+      bars +=
+        `<rect x="${bx.toFixed(1)}" y="${by.toFixed(1)}" width="${barW.toFixed(1)}" height="${(bottom - by).toFixed(1)}" rx="3" fill="${activo ? "#2563eb" : "#94a3b8"}"><title>${s.nombre}: ${Math.round(s.margen_ebitda_default * 100)}%</title></rect>` +
+        `<text x="${cx.toFixed(1)}" y="${(bottom + 14).toFixed(1)}" text-anchor="end" transform="rotate(-35 ${cx.toFixed(1)} ${(bottom + 14).toFixed(1)})" class="bm-lbl${activo ? " bm-lbl-on" : ""}">${lbl}</text>`;
+    });
+
+    const yU = yTo(userM);
+    const linea =
+      `<line x1="${padL}" y1="${yU.toFixed(1)}" x2="${W - padR}" y2="${yU.toFixed(1)}" stroke="#dc2626" stroke-width="2"/>` +
+      `<rect x="${padL + 4}" y="${(yU - 17).toFixed(1)}" width="140" height="16" rx="3" fill="#dc2626"/>` +
+      `<text x="${padL + 11}" y="${(yU - 5).toFixed(1)}" class="bm-you">Tu margen: ${Math.round(userM * 100)}%</text>`;
+
+    $("#benchmark-svg").innerHTML =
+      `<svg viewBox="0 0 ${W} ${H}" width="100%" xmlns="http://www.w3.org/2000/svg">${grid}${bars}` +
+      `<line x1="${padL}" y1="${bottom}" x2="${W - padR}" y2="${bottom}" stroke="#cbd5e1"/>${linea}</svg>`;
   }
 
   // ── Dashboard interactivo del Nivel 3 ────────────────────────────────────
