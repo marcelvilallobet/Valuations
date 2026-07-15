@@ -1,7 +1,12 @@
 ﻿---
 /**
- * Lista de FAQs con accordion nativo (details/summary), sin JS.
+ * Lista de FAQs con accordion nativo (details/summary).
  * Props: limite (opcional) para mostrar solo las N primeras (preview en home).
+ *
+ * Registro de clic: cuando el usuario ABRE una pregunta se registra en
+ * Netlify Forms (form "faq"), igual que "libros"/"visitas"/"leads". Así ves
+ * en Netlify → Forms qué dudas interesan más, sin backend. También manda un
+ * evento a Plausible si está cargado.
  */
 import faqData from "../config/faq.json";
 
@@ -13,11 +18,49 @@ const { limite } = Astro.props;
 const faqs = limite ? faqData.faqs.slice(0, limite) : faqData.faqs;
 ---
 
+<!-- Form estático oculto SOLO para que Netlify detecte "faq" en build. -->
+<form name="faq" data-netlify="true" netlify-honeypot="bot-field" hidden aria-hidden="true">
+  <input type="text" name="pregunta" />
+  <input type="text" name="pagina" />
+  <input type="text" name="bot-field" />
+</form>
+
 <div class="faq-lista">
   {faqs.map((faq) => (
-    <details class="faq-item">
+    <details class="faq-item" data-faq={faq.pregunta}>
       <summary>{faq.pregunta}</summary>
       <div class="faq-respuesta">{faq.respuesta}</div>
     </details>
   ))}
 </div>
+
+<script is:inline>
+  // Registra cuando se ABRE una pregunta (Netlify Forms "faq" + Plausible).
+  // Solo al abrir, no al cerrar, y una vez por pregunta para no duplicar.
+  (function () {
+    document.querySelectorAll(".faq-item").forEach(function (item) {
+      var registrado = false;
+      item.addEventListener("toggle", function () {
+        if (!item.open || registrado) return;
+        registrado = true;
+        var pregunta = item.getAttribute("data-faq") || "";
+        try {
+          var datos = new URLSearchParams({
+            "form-name": "faq",
+            pregunta: pregunta,
+            pagina: location.pathname,
+          });
+          fetch("/", {
+            method: "POST",
+            headers: { "Content-Type": "application/x-www-form-urlencoded" },
+            body: datos.toString(),
+            keepalive: true,
+          }).catch(function () {});
+        } catch (e) {}
+        if (typeof window.plausible === "function") {
+          window.plausible("ClicFAQ", { props: { pregunta: pregunta } });
+        }
+      });
+    });
+  })();
+</script>
