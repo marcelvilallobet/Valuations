@@ -601,6 +601,94 @@ a:hover { color: var(--color-blue-light); }
   font-variant-numeric: tabular-nums;
 }
 
+/* ── Informe interactivo (tarjeta + sliders + métodos) ── */
+.informe-card {
+  background: var(--color-white);
+  border: 1px solid var(--color-gray-200);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow);
+  padding: 1.5rem;
+  text-align: left;
+  margin-bottom: 1.5rem;
+}
+
+.informe-header {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  border-bottom: 1px solid var(--color-gray-200);
+  padding-bottom: 1rem;
+}
+
+.informe-sector {
+  font-size: 0.8rem;
+  color: var(--color-gray-500);
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.informe-empresa { font-size: 1.4rem; font-weight: 700; color: var(--color-navy); margin: 0.2rem 0 0; }
+.informe-valor-wrap { text-align: right; }
+.informe-valor-label { font-size: 0.85rem; color: var(--color-gray-500); margin: 0; }
+
+.informe-valor {
+  font-size: 2.4rem;
+  font-weight: 800;
+  color: var(--color-navy);
+  margin: 0.1rem 0;
+  line-height: 1.1;
+  font-variant-numeric: tabular-nums;
+}
+
+.informe-rango { font-size: 0.9rem; color: var(--color-gray-500); margin: 0; font-variant-numeric: tabular-nums; }
+
+.informe-sliders-ayuda { font-size: 0.9rem; color: var(--color-gray-500); margin: 1rem 0 0.75rem; }
+.informe-sliders { display: grid; gap: 0.75rem; }
+
+.slider-fila {
+  display: grid;
+  grid-template-columns: 9.5rem 1fr 6rem;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.slider-fila label { font-size: 0.9rem; color: var(--color-gray-700); }
+.slider-fila input[type="range"] { accent-color: var(--color-blue); width: 100%; }
+
+.slider-valor {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--color-navy);
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+@media (max-width: 560px) {
+  .slider-fila { grid-template-columns: 1fr auto; }
+  .slider-fila input[type="range"] { grid-column: 1 / -1; order: 3; }
+}
+
+.metodos { margin-top: 1.5rem; border-top: 1px solid var(--color-gray-200); padding-top: 1.25rem; }
+.metodos h3 { font-size: 1.1rem; margin: 0 0 0.3rem; }
+.metodos-ayuda { font-size: 0.9rem; color: var(--color-gray-500); margin: 0 0 1rem; }
+
+.metodos-grid { display: grid; grid-template-columns: auto 1fr; gap: 1.5rem; align-items: center; }
+@media (max-width: 560px) { .metodos-grid { grid-template-columns: 1fr; } }
+
+.metodos-donut { display: flex; justify-content: center; }
+.donut-centro { font-size: 13px; fill: var(--color-gray-500); font-weight: 600; }
+
+.metodos-tabla { width: 100%; border-collapse: collapse; font-size: 0.92rem; }
+.metodos-tabla th, .metodos-tabla td { text-align: left; padding: 0.5rem 0.4rem; border-bottom: 1px solid var(--color-gray-200); }
+.metodos-tabla thead th { font-size: 0.78rem; color: var(--color-gray-500); text-transform: uppercase; letter-spacing: 0.02em; }
+.metodos-tabla td:nth-child(2), .metodos-tabla th:nth-child(2),
+.metodos-tabla td:nth-child(3), .metodos-tabla th:nth-child(3) { text-align: right; font-variant-numeric: tabular-nums; }
+.metodos-tabla tfoot th, .metodos-tabla tfoot td { font-weight: 700; color: var(--color-navy); border-bottom: none; padding-top: 0.7rem; }
+.metodo-dot { display: inline-block; width: 10px; height: 10px; border-radius: 3px; margin-right: 0.5rem; vertical-align: middle; }
+
 /* ── Curva de probabilidad de precio (los 3 niveles) ──── */
 .curva {
   background: var(--color-white);

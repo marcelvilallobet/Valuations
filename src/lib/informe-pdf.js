@@ -80,6 +80,21 @@ export async function generarPDF(resultado, inputs, textos) {
     resultado.flujos.forEach((fcf, i) => {
       tablaDesglose.push([`Año ${i + 1} (crecimiento ${fmtPct(resultado.tasasCrecimiento[i] ?? 0)})`, fmt(fcf)]);
     });
+  } else if (resultado.metodologia === 'informe') {
+    tablaDesglose = [
+      [{ text: 'Parámetro', style: 'tableHeader' }, { text: 'Valor', style: 'tableHeader' }],
+      ['Sector', resultado.sectorNombre],
+      ['EBITDA utilizado', fmt(resultado.ebitda)],
+      ['Margen EBITDA', fmtPct(resultado.margen)],
+      ['Crecimiento anual', fmtPct(resultado.crecimiento)],
+      ['WACC (DCF)', fmtPct(resultado.waccUsado)],
+      ['Múltiplo EV/EBITDA aplicado', `${resultado.multiplo}x`],
+      [{ text: 'Métodos (valoración · peso)', colSpan: 2, style: 'tableSubHeader' }, {}],
+      ...resultado.metodos.map((m) => [`${m.nombre} · ${Math.round(m.peso * 100)} %`, fmt(m.valor)]),
+      ['Valoración mínima', fmt(resultado.valorMin)],
+      ['Valoración combinada', fmt(resultado.valorCentral)],
+      ['Valoración máxima', fmt(resultado.valorMax)],
+    ];
   }
 
   // ── Tabla comparativa de múltiplos por sector ─────────────────────────────
