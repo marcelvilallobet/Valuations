@@ -8,6 +8,14 @@ import ganchosData from "../config/ganchos.json";
 const ganchos = ganchosData.ganchos;
 ---
 
+<!-- Form estático oculto SOLO para que Netlify detecte "ganchos" en build.
+     Registra qué gancho (perfil) toca la gente, para verlo en Netlify → Forms. -->
+<form name="ganchos" data-netlify="true" netlify-honeypot="bot-field" hidden aria-hidden="true">
+  <input type="text" name="perfil" />
+  <input type="text" name="pagina" />
+  <input type="text" name="bot-field" />
+</form>
+
 <div class="ganchos" id="ganchos">
   {ganchos.map((g) => (
     <div class="gancho-card">

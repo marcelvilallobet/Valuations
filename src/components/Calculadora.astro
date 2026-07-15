@@ -527,6 +527,11 @@
     btn.addEventListener("click", () => {
       const perfil = btn.dataset.perfil;
 
+      // Registra el clic del gancho en Netlify Forms ("ganchos") + Plausible,
+      // para que Marcel vea en Netlify qué CTA toca la gente.
+      postNetlify("ganchos", { perfil, pagina: location.pathname }).catch(() => {});
+      track("ClicGancho", { perfil });
+
       // El gancho "crecer" lleva además al nivel 3 (modo simulador)
       if (perfil === "crecer") {
         document.getElementById("tab-3").click();
