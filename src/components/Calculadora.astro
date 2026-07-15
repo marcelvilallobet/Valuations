@@ -74,30 +74,9 @@
 
         <!-- Proyecciones: nivel 3 -->
         <div class="campo campo-nivel-3 hidden">
-          <label>¿Cuánto crees que crecerás cada año? (%)</label>
-          <p class="ayuda" style="margin-bottom: 0.6rem;">Juega con las hipótesis y mira cómo cambia el valor. Puedes poner números distintos cada año.</p>
-          <div class="crecimiento-grid">
-            <div class="campo">
-              <label for="in-g1">Año 1</label>
-              <input type="number" id="in-g1" inputmode="decimal" step="0.5" value="5" />
-            </div>
-            <div class="campo">
-              <label for="in-g2">Año 2</label>
-              <input type="number" id="in-g2" inputmode="decimal" step="0.5" value="5" />
-            </div>
-            <div class="campo">
-              <label for="in-g3">Año 3</label>
-              <input type="number" id="in-g3" inputmode="decimal" step="0.5" value="5" />
-            </div>
-            <div class="campo">
-              <label for="in-g4">Año 4</label>
-              <input type="number" id="in-g4" inputmode="decimal" step="0.5" value="5" />
-            </div>
-            <div class="campo">
-              <label for="in-g5">Año 5</label>
-              <input type="number" id="in-g5" inputmode="decimal" step="0.5" value="5" />
-            </div>
-          </div>
+          <label for="in-crecimiento">¿Cuánto crees que crecerás al año? (%)</label>
+          <input type="number" id="in-crecimiento" inputmode="decimal" step="0.5" value="5" />
+          <p class="ayuda">Una estimación de crecimiento anual. Luego, en el resultado, podrás moverla y ver cómo cambia el valor.</p>
         </div>
 
         <button type="submit" class="btn btn-primary btn-lg btn-calcular" id="btn-calcular">
@@ -235,10 +214,7 @@
       }
       margen = ebitda / ventas;
       if (nivelActivo === 3) {
-        const tasas = ["#in-g1", "#in-g2", "#in-g3", "#in-g4", "#in-g5"].map(
-          (id) => (parseFloat($(id).value) || 0) / 100
-        );
-        crecimiento = tasas.reduce((a, b) => a + b, 0) / tasas.length;
+        crecimiento = (parseFloat($("#in-crecimiento").value) || 0) / 100;
       }
     }
 

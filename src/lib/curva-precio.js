@@ -80,12 +80,13 @@ export function modeloCurva(r, nPuntos = 72) {
     valorMin,
     valorCentral,
     valorMax,
-    // Reparte el MISMO rango honesto por mitades y comportamiento de comprador:
-    // el financiero (rentabilidad) tiende a la mitad baja; el estratégico
-    // (sinergias) a la mitad alta. No añade primas inventadas.
+    // Reparte el MISMO rango honesto por comportamiento de comprador, con
+    // franjas que SE SOLAPAN (pagan parecido): el financiero (rentabilidad)
+    // tiende a la parte baja-media; el estratégico (sinergias) a la media-alta.
+    // No añade primas inventadas ni los separa artificialmente.
     compradores: [
-      { id: "financiero", etiqueta: "Comprador financiero", min: valorMin, max: medio },
-      { id: "estrategico", etiqueta: "Comprador estratégico", min: medio, max: valorMax },
+      { id: "financiero", etiqueta: "Comprador financiero", min: valorMin, max: valorMin + 0.65 * (valorMax - valorMin) },
+      { id: "estrategico", etiqueta: "Comprador estratégico", min: valorMin + 0.35 * (valorMax - valorMin), max: valorMax },
     ],
   };
 }

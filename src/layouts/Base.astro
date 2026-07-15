@@ -28,7 +28,6 @@ const schemaOrg = {
       "@id": `${site.href}#organization`,
       name: marca.nombre,
       url: site.href,
-      email: marca.email_contacto,
     },
     {
       "@type": "WebSite",
@@ -97,7 +96,6 @@ const schemaOrg = {
         <div class="footer-links">
           <a href="/privacidad">Política de privacidad</a>
           <a href="/aviso-legal">Aviso legal</a>
-          <a href={`mailto:${marca.email_contacto}`}>{marca.email_contacto}</a>
         </div>
         <p>© {new Date().getFullYear()} {marca.nombre}. La valoración ofrecida es orientativa y no constituye asesoramiento financiero.</p>
       </div>
